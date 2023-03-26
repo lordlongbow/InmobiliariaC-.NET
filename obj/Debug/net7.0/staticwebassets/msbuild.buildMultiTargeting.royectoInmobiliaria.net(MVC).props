@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\royectoInmobiliaria.net(MVC).props" />
+</Project>
