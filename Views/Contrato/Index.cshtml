@@ -1,0 +1,69 @@
+@model IEnumerable<royectoInmobiliaria.net_MVC_.Models.Contrato>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Lista de Contratos</h1>
+
+<p>
+    <a asp-action="Crear">Crear Contrato</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ContratoId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaInicio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaFinalizacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PagoId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InmuebleId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InquilinoId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ContratoId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaInicio)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaFinalizacion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PagoId)
+                </td>
+                <td>
+                    @(item.Inmueble.Direccion)
+                </td>
+                <td>
+                    @if (item.Inquilino != null)
+                    {
+                        @(item.Inquilino.Nombre + " " + item.Inquilino.Apellido)
+                    }
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Editar", new { id = item.ContratoId }) |
+                    @Html.ActionLink("Detalles", "Detalles", new { id = item.ContratoId }) |
+                    @Html.ActionLink("Borrar", "Borrar", new { id = item.ContratoId })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

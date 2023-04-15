@@ -1,0 +1,86 @@
+@model royectoInmobiliaria.net_MVC_.Models.Inmueble
+
+@{
+    ViewData["Title"] = "Crear";
+    var propietarios = (IList<Propietario>)ViewBag.Propietarios;
+    var tipos = (IList<Tipo>)ViewBag.Tipos;
+    var usos = (IList<Uso>)ViewBag.Usos;
+}
+
+<h1>Crear</h1>
+
+<h4>Inmueble</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Crear">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+             <div class="form-group">
+                <label asp-for="Direccion" class="control-label"></label>
+                <input asp-for="Direccion" class="form-control" />
+                <span asp-validation-for="Direccion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Precio" class="control-label"></label>
+                <input asp-for="Precio" class="form-control" />
+                <span asp-validation-for="Precio" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CantAmbientes" class="control-label"></label>
+                <input asp-for="CantAmbientes" class="form-control" />
+                <span asp-validation-for="CantAmbientes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Latitud" class="control-label"></label>
+                <input asp-for="Latitud" class="form-control" />
+                <span asp-validation-for="Latitud" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Longitud" class="control-label"></label>
+                <input asp-for="Longitud" class="form-control" />
+                <span asp-validation-for="Longitud" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Propietario</label>
+				<select class="form-control" asp-for="PropietarioId">
+                    <option value="" disabled selected>Seleccione un propietario...</option>
+                    @foreach (var propietario in propietarios)
+                    {
+                        <option value="@propietario.Id">@propietario.Nombre  @propietario.Apellido</option>
+                    }
+                </select>
+                <span asp-validation-for="PropietarioId" class="text-danger"></span>
+            </div>
+             <div class="form-group">
+                <label class="control-label">Tipo</label>
+				<select class="form-control" asp-for="TipoId">
+                     <option value="" disabled selected>Selecciones el Tipo...</option>
+                    @foreach (var tipo in tipos)
+                    {
+                        <option value="@tipo.TipoId">@tipo.Descripcion</option>
+                    } 
+                </select>
+                <span asp-validation-for="TipoId" class="text-danger"></span>
+            </div>
+              <div class="form-group">
+                <label class="control-label">Uso</label>
+				<select class="form-control" asp-for="UsoId">
+                     <option value="" disabled selected>Selecciones el Uso...</option>
+                    @foreach (var uso in usos)
+                    {
+                        <option value="@uso.UsoId">@uso.DescripcionUso</option>
+                    } 
+                </select>
+                <span asp-validation-for="UsoId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Agregar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Volver</a>
+</div>
+

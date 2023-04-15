@@ -1,0 +1,14 @@
+# Ignorar archivos binarios
+*.exe
+*.dll
+*.pdb
+*.lib
+*.obj
+*.so
+*.dylib
+*.apk
+*.ipa
+
+# Ignorar carpetas generadas
+bin/
+obj/

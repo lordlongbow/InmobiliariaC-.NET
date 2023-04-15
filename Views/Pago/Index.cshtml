@@ -1,0 +1,53 @@
+@model IEnumerable<royectoInmobiliaria.net_MVC_.Models.Pago>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Pagos </h1>
+
+<p>
+    <a asp-action="Crear">Crear Nuevo Pago</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PagoId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Precio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fecha)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.nro_pago)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PagoId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Precio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fecha)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nro_pago)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Editar", new { id=item.PagoId }) |
+                @Html.ActionLink("Detalles", "Detalles", new { id=item.PagoId }) |
+                @Html.ActionLink("Borrar", "Borrar", new { id=item.PagoId })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
