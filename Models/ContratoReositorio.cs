@@ -14,14 +14,12 @@ public class ContratoReositorio
         using (MySqlConnection connection = new MySqlConnection(connectingString))
         {
             string query =
-                @"SELECT c.id_contrato as ContratoId, c.fechaInicio, c.fechaFinalizacion, c.id_precio as PagoId, c.id_inmueble as InmuebleId, c.id_inquilino as InquilinoId, 
+                @"SELECT c.id_contrato as ContratoId, c.fechaInicio, c.fechaFinalizacion, c.id_inmueble as InmuebleId, c.id_inquilino as InquilinoId, 
                 i.id_inmueble, i.direccion as Direccion, 
-                iq.id, iq.nombre, iq.apellido, 
-                p.id_pago, p.nroPago as nro_pago, p.importe as Precio, p.fecha
+                iq.id, iq.nombre, iq.apellido              
                  FROM contrato c
                  INNER JOIN inmueble i ON c.id_inmueble = i.id_inmueble
-                 INNER JOIN inquilino iq ON c.id_inquilino = iq.id
-                 INNER JOIN pago p ON c.id_precio = p.id_pago;";
+                 INNER JOIN inquilino iq ON c.id_inquilino = iq.id";
             using (MySqlCommand command = new MySqlCommand(query, connection))
             {
                 connection.Open();
@@ -37,7 +35,7 @@ public class ContratoReositorio
                         );
                         contrato.InmuebleId = reader.GetInt32(nameof(Contrato.InmuebleId));
                         contrato.InquilinoId = reader.GetInt32(nameof(Contrato.InquilinoId));
-                        contrato.PagoId = reader.GetInt32(nameof(Contrato.PagoId));
+                     
                         contrato.Inmueble = new Inmueble
                         {
                             InmuebleId = reader.GetInt32(nameof(Inmueble.InmuebleId)),
@@ -49,13 +47,7 @@ public class ContratoReositorio
                             Nombre = reader.GetString(nameof(Inquilino.Nombre)),
                             Apellido = reader.GetString(nameof(Inquilino.Apellido))
                         };
-                        contrato.Precio = new Pago
-                        {
-                            PagoId = reader.GetInt32(nameof(Pago.PagoId)),
-                            nro_pago = reader.GetInt32(nameof(Pago.nro_pago)),
-                            Precio = reader.GetDecimal(nameof(Pago.Precio)),
-                            Fecha = reader.GetDateTime(nameof(Pago.Fecha))
-                        };
+                       
 
                         contratos.Add(contrato);
                     }
@@ -72,14 +64,12 @@ public class ContratoReositorio
         using (MySqlConnection connection = new MySqlConnection(connectingString))
         {
             string query =
-                @"SELECT c.id_contrato as ContratoId, c.fechaInicio, c.fechaFinalizacion, c.id_precio as PagoId, c.id_inmueble as InmuebleId, c.id_inquilino as InquilinoId, 
+                @"SELECT c.id_contrato as ContratoId, c.fechaInicio, c.fechaFinalizacion, c.id_inmueble as InmuebleId, c.id_inquilino as InquilinoId, 
                 i.id_inmueble, i.direccion as Direccion, 
-                iq.id, iq.nombre, iq.apellido, 
-                p.id_pago, p.nroPago as nro_pago, p.importe as Precio, p.fecha
+                iq.id, iq.nombre, iq.apellido               
                  FROM contrato c
                  INNER JOIN inmueble i ON c.id_inmueble = i.id_inmueble
                  INNER JOIN inquilino iq ON c.id_inquilino = iq.id
-                 INNER JOIN pago p ON c.id_precio = p.id_pago
                  WHERE c.id_contrato = @id";
             using (MySqlCommand command = new MySqlCommand(query, connection))
             {
@@ -96,7 +86,7 @@ public class ContratoReositorio
                         );
                         contrato.InmuebleId = reader.GetInt32(nameof(Contrato.InmuebleId));
                         contrato.InquilinoId = reader.GetInt32(nameof(Contrato.InquilinoId));
-                        contrato.PagoId = reader.GetInt32(nameof(Contrato.PagoId));
+         
                         contrato.Inmueble = new Inmueble
                         {
                             InmuebleId = reader.GetInt32(nameof(Inmueble.InmuebleId)),
@@ -108,13 +98,7 @@ public class ContratoReositorio
                             Nombre = reader.GetString(nameof(Inquilino.Nombre)),
                             Apellido = reader.GetString(nameof(Inquilino.Apellido))
                         };
-                        contrato.Precio = new Pago
-                        {
-                            PagoId = reader.GetInt32(nameof(Pago.PagoId)),
-                            nro_pago = reader.GetInt32(nameof(Pago.nro_pago)),
-                            Precio = reader.GetDecimal(nameof(Pago.Precio)),
-                            Fecha = reader.GetDateTime(nameof(Pago.Fecha))
-                        };
+                        
                     }
                 }
             }
@@ -128,14 +112,14 @@ public class ContratoReositorio
         using (MySqlConnection connection = new MySqlConnection(connectingString))
         {
             string query =
-                @"INSERT INTO contrato (fechaInicio, fechaFinalizacion, id_precio, id_inmueble, id_inquilino)
-             VALUES (@fechaInicio, @fechaFinalizacion, @id_precio, @id_inmueble, @id_inquilino);
+                @"INSERT INTO contrato (fechaInicio, fechaFinalizacion,  id_inmueble, id_inquilino)
+             VALUES (@fechaInicio, @fechaFinalizacion,  @id_inmueble, @id_inquilino);
              SELECT LAST_INSERT_ID();";
             using (MySqlCommand command = new MySqlCommand(query, connection))
             {
                 command.Parameters.AddWithValue("@fechaInicio", contrato.FechaInicio);
                 command.Parameters.AddWithValue("@fechaFinalizacion", contrato.FechaFinalizacion);
-                command.Parameters.AddWithValue("@id_precio", contrato.PagoId);
+         
                 command.Parameters.AddWithValue("@id_inmueble", contrato.InmuebleId);
                 command.Parameters.AddWithValue("@id_inquilino", contrato.InquilinoId);
 
@@ -161,13 +145,13 @@ public class ContratoReositorio
         {
             string query =
                 @"UPDATE contrato SET fechaInicio = @fechaInicio, fechaFinalizacion = @fechaFinalizacion,
-                id_precio = @id_precio, id_inmueble = @id_inmueble, id_inquilino = @id_inquilino
+                 id_inmueble = @id_inmueble, id_inquilino = @id_inquilino
                 WHERE contrato.id_contrato = @id;";
             using (MySqlCommand command = new MySqlCommand(query, connection))
             {
                 command.Parameters.AddWithValue("@fechaInicio", contrato.FechaInicio);
                 command.Parameters.AddWithValue("@fechaFinalizacion", contrato.FechaFinalizacion);
-                command.Parameters.AddWithValue("@id_precio", contrato.PagoId);
+         
                 command.Parameters.AddWithValue("@id_inmueble", contrato.InmuebleId);
                 command.Parameters.AddWithValue("@id_inquilino", contrato.InquilinoId);
                 command.Parameters.AddWithValue("@id", id);

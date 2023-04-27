@@ -1,0 +1,41 @@
+@model royectoInmobiliaria.net_MVC_.Models.Usuario
+
+@{
+    ViewData["Title"] = "Cambio Contrasenia";
+}
+
+<h1>Cambio Contrasenia</h1>
+
+<h4>Estas seguro que quieres cambiar tu Contrasenia¿</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+         <form method="post" enctype="multipart/form-data" asp-action="CambioContrasenia">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+             
+                <input asp-for="UsuarioId" type="hidden" class="form-control" />
+                <span asp-validation-for="UsuarioId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Username" class="control-label"></label>
+                <input asp-for="Username" type="hidden" class="form-control" />
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Contrasenia" class="control-label"></label>
+                <input asp-for="Contrasenia" class="form-control" />
+                <span asp-validation-for="Contrasenia" class="text-danger"></span>
+            </div>
+       
+            <div class="form-group">
+                <input type="submit" value="Guardar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Volver</a>
+</div>
+

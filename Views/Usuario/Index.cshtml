@@ -1,0 +1,70 @@
+@model IEnumerable<royectoInmobiliaria.net_MVC_.Models.Usuario>
+
+@{
+    ViewData["Title"] = "Index";
+    var Roles = (IList<Rol>)ViewBag.Roles;
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Crear">Agregar</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UsuarioId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Username)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Rol)
+
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Apellido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.foto)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UsuarioId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Username)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rol)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Apellido)
+                </td>
+                <td>
+                    <img width="32" src="@item.foto" />
+                </td>
+
+                <td>
+                    @Html.ActionLink("Editar", "Editar", new { id=item.UsuarioId }) |
+                    @Html.ActionLink("Detalles", "Detalles", new { id=item.UsuarioId }) |
+                    @Html.ActionLink("Borrar", "Borrar", new { id=item.UsuarioId })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

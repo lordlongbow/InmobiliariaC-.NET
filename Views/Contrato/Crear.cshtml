@@ -4,7 +4,7 @@
     ViewData["Title"] = "Crear";
     var Inquilinos = (IList<Inquilino>)ViewBag.Inquilinos;
     var Inmuebles = (IList<Inmueble>)ViewBag.Inmuebles;
-    var pagos = (IList<Pago>)ViewBag.Pagos;
+ 
 }
 
 <h1>Crear</h1>
@@ -25,18 +25,7 @@
                <input asp-for="FechaFinalizacion" type="Date" class="form-control"  />
                  <span asp-validation-for="FechaFinalizacion" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="PagoId" class="control-label"></label>
-                 <select class="form-control" asp-for="PagoId">
-                    <option value="" disabled selected>Selecciones el Pago...</option>
-                    @foreach (var pago in pagos)
-                    {
-                        <option value="@pago.PagoId">@pago.PagoId</option>
-                    }
-                </select>
-               
-                <span asp-validation-for="PagoId" class="text-danger"></span>
-            </div>
+            
             <div class="form-group">
                 <label asp-for="InmuebleId" class="control-label">Inmueble</label>
                 <select class="form-control" asp-for="InmuebleId">

@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using royectoInmobiliaria.net_MVC_.Models;
 
 namespace royectoInmobiliaria.net_MVC_.Controllers
 {
+    [Authorize]
     public class PropietarioController : Controller
     {
         private PropietarioReositorio propietarioReositorio;
@@ -80,6 +82,7 @@ namespace royectoInmobiliaria.net_MVC_.Controllers
         }
 
         // GET: Propietario/Delete/5
+        [Authorize(Roles = "Administrador")]
         public ActionResult Borrar(int id)
         {
             var propietario = propietarioReositorio.getPropietario(id);
@@ -89,6 +92,7 @@ namespace royectoInmobiliaria.net_MVC_.Controllers
         // POST: Propietario/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador")]
         public ActionResult Borrar(int id, Propietario propietario)
         {
             try

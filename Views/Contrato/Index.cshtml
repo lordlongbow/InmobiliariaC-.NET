@@ -21,9 +21,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.FechaFinalizacion)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PagoId)
-            </th>
+        
             <th>
                 @Html.DisplayNameFor(model => model.InmuebleId)
             </th>
@@ -46,9 +44,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.FechaFinalizacion)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PagoId)
-                </td>
+            
                 <td>
                     @(item.Inmueble.Direccion)
                 </td>
@@ -61,7 +57,9 @@
                 <td>
                     @Html.ActionLink("Editar", "Editar", new { id = item.ContratoId }) |
                     @Html.ActionLink("Detalles", "Detalles", new { id = item.ContratoId }) |
-                    @Html.ActionLink("Borrar", "Borrar", new { id = item.ContratoId })
+                    @Html.ActionLink("Borrar", "Borrar", new { id = item.ContratoId })  |
+                    @Html.ActionLink("Pagar", "Crear", "Pago", new {id = item.ContratoId} )
+
                 </td>
             </tr>
         }

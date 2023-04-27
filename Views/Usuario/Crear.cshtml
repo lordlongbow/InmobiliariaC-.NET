@@ -1,0 +1,65 @@
+@model royectoInmobiliaria.net_MVC_.Models.Usuario
+
+@{
+    ViewData["Title"] = "Crear";
+    var roles = (IList<Rol>)ViewBag.Roles;
+}
+
+<h1>Registro</h1>
+
+<h4>Usuario</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" enctype="multipart/form-data" asp-action="Crear">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input asp-for="UsuarioId" type="hidden" class="form-control" />
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Username" class="control-label">Nombre de Usuario</label>
+                <input asp-for="Username" class="form-control" />
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Contrasenia" class="control-label">Contraseña</label>
+                <input asp-for="Contrasenia" class="form-control" />
+                <span asp-validation-for="Contrasenia" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RolId" class="control-label">Rol</label>
+                <select asp-for="RolId" class="form-control">
+                    <option value="">Seleccione un Rol...</option>
+                    @foreach (var rol in roles)
+                    {
+                        <option value="@rol.RolId">@rol.Descricion</option>
+                    }
+                </select>
+                <span asp-validation-for="RolId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nombre" class="control-label">Nombre</label>
+                <input asp-for="Nombre" class="form-control" />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+            <div class="form-group"> 
+                <label asp-for="Apellido" class="control-label">Apellido</label>
+                <input asp-for="Apellido" class="form-control" />
+                <span asp-validation-for="Apellido" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Fotofisica" class="control-label">Seleccione una foto</label>
+                <input asp-for="Fotofisica" type="file" class="form-control-file" />
+                <span asp-validation-for="Fotofisica" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Registrarse" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Volver</a>
+</div>

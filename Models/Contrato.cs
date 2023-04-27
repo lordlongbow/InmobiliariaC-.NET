@@ -16,13 +16,8 @@ public class Contrato
     [Display(Name = "Fecha Finalizacion")]
     public DateTime FechaFinalizacion { get; set; }
   
-    public Pago? Precio { get; set; }
-    [Display(Name = "Codigo de Pago")]
-    [ForeignKey("PagoId")]
-    public int PagoId { get; set; }
-  
     public Inmueble? Inmueble { get; set; }
-     [Display(Name = "Inmueble")]
+    [Display(Name = "Inmueble")]
     [ForeignKey("InmuebleId")]
     public int InmuebleId { get; set; }
   

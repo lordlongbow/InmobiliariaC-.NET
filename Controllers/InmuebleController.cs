@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using royectoInmobiliaria.net_MVC_.Models;
 
 namespace royectoInmobiliaria.net_MVC_.Controllers
-{
+{  
+     [Authorize]
     public class InmuebleController : Controller
     {
         private InmuebleRepositorio InmuebleRepositorio = new InmuebleRepositorio();
@@ -86,6 +88,7 @@ namespace royectoInmobiliaria.net_MVC_.Controllers
         }
 
         // GET: Inmueble/Delete/5
+        [Authorize(Roles = "Administrador")]
         public ActionResult Borrar(int id)
         {
              Inmueble Inmueble = InmuebleRepositorio.getInmueble(id);
@@ -95,6 +98,7 @@ namespace royectoInmobiliaria.net_MVC_.Controllers
         // POST: Inmueble/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador")]
         public ActionResult Borrar(int id, Inmueble Inmueble)
         {
             try

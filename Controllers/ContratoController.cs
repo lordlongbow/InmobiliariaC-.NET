@@ -2,18 +2,21 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using royectoInmobiliaria.net_MVC_.Models;
 
 namespace royectoInmobiliaria.net_MVC_.Controllers
 {
+    [Authorize]
     public class ContratoController : Controller
     {
         private ContratoReositorio ContratoRepositorio = new ContratoReositorio();
         private InquilinoReositorio InquilinoRepositorio = new InquilinoReositorio();
         private InmuebleRepositorio InmuebleRepositorio = new InmuebleRepositorio();
-        private PagoReositorio PagoRepositorio = new PagoReositorio();
+      
+        private PagoReositorio PagoReositorio = new PagoReositorio();
 
         public ContratoController() { }
 
@@ -43,8 +46,10 @@ namespace royectoInmobiliaria.net_MVC_.Controllers
         {
             ViewBag.Inquilinos = InquilinoRepositorio.GetInquilinos();
             ViewBag.Inmuebles = InmuebleRepositorio.GetInmuebles();
-            ViewBag.Pagos = PagoRepositorio.GetPagos();
+          
+         
             Contrato contrato = new Contrato() { FechaInicio = DateTime.Today };
+           
             return View(contrato);
         }
 
@@ -70,7 +75,7 @@ namespace royectoInmobiliaria.net_MVC_.Controllers
         {
             ViewBag.Inquilinos = InquilinoRepositorio.GetInquilinos();
             ViewBag.Inmuebles = InmuebleRepositorio.GetInmuebles();
-            ViewBag.Pagos = PagoRepositorio.GetPagos();
+          
             Contrato contrato = ContratoRepositorio.GetContrato(id);
             return View(contrato);
         }
@@ -94,6 +99,8 @@ namespace royectoInmobiliaria.net_MVC_.Controllers
         }
 
         // GET: Contrato/Delete/5
+
+        [Microsoft.AspNetCore.Authorization.Authorize(Roles = "Administrador")]
         public ActionResult Borrar(int id)
         {
             Contrato contrato = ContratoRepositorio.GetContrato(id);
@@ -103,6 +110,7 @@ namespace royectoInmobiliaria.net_MVC_.Controllers
         // POST: Contrato/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador")]
         public ActionResult Borrar(int id, Contrato contrato)
         {
             try
@@ -118,5 +126,3 @@ namespace royectoInmobiliaria.net_MVC_.Controllers
         }
     }
 }
-
-//dotnet-aspnet-codegenerator view Index List -outDir "Views/Contratos" -udl --model vsTest.Models.Contrato -f

@@ -2,53 +2,66 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using royectoInmobiliaria.net_MVC_.Models;
 
 namespace royectoInmobiliaria.net_MVC_.Controllers
 {
+    [Authorize]
     public class PagoController : Controller
     {
+        private readonly PagoReositorio PagoReositorio = new PagoReositorio();
+        private readonly ContratoReositorio ContratoReositorio = new ContratoReositorio();
+        private readonly InmuebleRepositorio InmuebleRepositorio = new InmuebleRepositorio();
 
-      private PagoReositorio PagoReositorio = new PagoReositorio();
+
         // GET: Pago
-        public ActionResult Index(int id )
-        { 
+        public IActionResult Index(int id)
+        {
             var lista = PagoReositorio.GetPagos();
-            
-            if(lista.Count()>0){
-               return View(lista); 
-            }else {
-                return View();
+
+            if (lista.Count() < 0)
+            {
+                return RedirectToAction(nameof(Index));
             }
-            
+            else
+            {
+                return View(lista);
+            }
         }
 
         // GET: Pago/Details/5
-        public ActionResult Detalles(int id)
+        public IActionResult Detalles(int id)
         {
-            var Pago = PagoReositorio.GetPago();
+            Pago Pago = PagoReositorio.GetPago(id);
             return View(Pago);
         }
 
         // GET: Pago/Create
         public ActionResult Crear(int id)
         {
-//Aca viene id del contrato
-
-            return View();
+            //guardar datos en variables 
+            ViewBag.ContratoId = id;
+            var contrato = ContratoReositorio.GetContrato(id);
+            var inmueble  = InmuebleRepositorio.getInmueble(contrato.InmuebleId);
+            Pago nuevoPago = new Pago();
+            ViewBag.Inmueble = inmueble;
+            ViewBag.Contrato = contrato;
+            nuevoPago.Precio = inmueble.Precio;
+            return View(nuevoPago);
         }
 
         // POST: Pago/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Crear(Pago Pago)
+        public IActionResult Crear(Pago Pago, int IdContrato)
         {
             try
             {
-                PagoReositorio.Crear();
-                
+                ViewBag.Inmueble = InmuebleRepositorio.getInmueble(IdContrato);
+                ViewBag.Contrato = ContratoReositorio.GetContrato(IdContrato);
+                PagoReositorio.CrearAumentado(Pago);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -58,21 +71,24 @@ namespace royectoInmobiliaria.net_MVC_.Controllers
         }
 
         // GET: Pago/Edit/5
-        public ActionResult Editar(int id)
+        public IActionResult Editar(int id)
         {
-             var Pago = PagoReositorio.GetPago();
+            ViewBag.Contratos = ContratoReositorio.GetContratos();
+            ViewBag.Inmuebles = InmuebleRepositorio.GetInmuebles();
+
+            Pago Pago = PagoReositorio.GetPago(id);
             return View(Pago);
         }
 
         // POST: Pago/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Editar(int id, Pago Pago)
+        public IActionResult Editar(int id, Pago Pago)
         {
             try
             {
+                Pago.PagoId = id;
                 PagoReositorio.Modificar(id);
-
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -82,21 +98,22 @@ namespace royectoInmobiliaria.net_MVC_.Controllers
         }
 
         // GET: Pago/Delete/5
-        public ActionResult Borrar(int id)
+        [Authorize(Roles = "Administrador")]
+        public IActionResult Borrar(int id)
         {
-             var Pago = PagoReositorio.GetPago();
+            var Pago = PagoReositorio.GetPago(id);
             return View(Pago);
         }
 
         // POST: Pago/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Borrar(int id, Pago Pago)
+        [Authorize(Roles = "Administrador")]
+        public IActionResult Borrar(int id, Pago Pago)
         {
             try
             {
-               PagoReositorio.Borrar(id);
-
+                PagoReositorio.Borrar(id);
                 return RedirectToAction(nameof(Index));
             }
             catch

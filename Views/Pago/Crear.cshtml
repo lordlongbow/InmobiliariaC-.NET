@@ -1,7 +1,12 @@
 @model royectoInmobiliaria.net_MVC_.Models.Pago
 
+
 @{
     ViewData["Title"] = "Crear";
+    var Inmuebles = (IList<Inmueble>)ViewBag.Inmuebles;
+    var Contratos = (IList<Contrato>)ViewBag.Contratos;
+    var InmuebleAlquilado = ViewBag.Inmueble;
+    var ContratoAlquilado = ViewBag.Contrato;
 }
 
 <h1>Crear</h1>
@@ -13,18 +18,24 @@
         <form asp-action="Crear">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="PagoId" class="control-label"></label>
-                <input asp-for="PagoId" class="form-control" />
+                <input asp-for="PagoId" type="hidden" class="form-control" />
                 <span asp-validation-for="PagoId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Precio" class="control-label"></label>
                 <input asp-for="Precio" class="form-control" />
+
+                @if (InmuebleAlquilado != null)
+                {
+                    @InmuebleAlquilado.Precio
+                }
+
                 <span asp-validation-for="Precio" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Fecha" class="control-label"></label>
-                <input asp-for="Fecha" class="form-control" />
+                <input asp-for="Fecha" type="date" class="form-control" />
                 <span asp-validation-for="Fecha" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -33,13 +44,21 @@
                 <span asp-validation-for="nro_pago" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Agregar" class="btn btn-primary" />
-            </div>
+                <label asp-for="ContratoId" class="control-label"></label>
+
+                <input asp-for="ContratoId" class="form-control" /> 
+                @ContratoAlquilado.ContratoId
+                <span asp-validation-for="ContratoId" class="text-danger"></span>
+                <div class="form-group">
+                    <label asp-for="InmuebleId" class="control-label">Inmueble</label>
+                    <input asp-for="InmuebleId" class="form-control" />@InmuebleAlquilado.InmuebleId
+                    <span>@InmuebleAlquilado.Direccion</span>
+                    <span asp-validation-for="InmuebleId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Crear" class="btn btn-primary" />
+                </div>
         </form>
     </div>
 </div>
-
-<div>
-    <a asp-action="Index">Volver</a>
-</div>
-
