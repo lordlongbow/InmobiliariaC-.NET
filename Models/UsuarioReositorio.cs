@@ -146,14 +146,15 @@ public class UsuarioReositorio
         }
     }
 
-    public int Crear(Usuario usuario, IFormFile foto)
+    public int Crear(Usuario usuario)
     {
         int res = 0;
         using (MySqlConnection connection = new MySqlConnection(connectingString))
         {
             string query =
-                @"INSERT INTO usuario (`Username`, `password` as Contrasenia, `Rolid`, `nombre`, `apellido`, `foto`) 
-VALUES (@Username, @Contrasenia, @RolId, @Nombre, @Apellido, @RutaFoto); SELECT LAST_INSERT_ID();";
+              @"INSERT INTO usuario (`Username`, `password`, `Rolid`, `nombre`, `apellido`, `foto`) 
+							VALUES (@Username, @Contrasenia, @RolId, @Nombre, @Apellido, @RutaFoto); 
+							SELECT LAST_INSERT_ID();";
             using (MySqlCommand command = new MySqlCommand(query, connection))
             {
                 command.Parameters.AddWithValue("@Username", usuario.Username);
@@ -162,7 +163,7 @@ VALUES (@Username, @Contrasenia, @RolId, @Nombre, @Apellido, @RutaFoto); SELECT 
                 command.Parameters.AddWithValue("@Nombre", usuario.Nombre);
                 command.Parameters.AddWithValue("@Apellido", usuario.Apellido);
                 if (String.IsNullOrEmpty(usuario.foto))
-                    command.Parameters.AddWithValue("@RutaFoto", DBNull.Value);
+                    command.Parameters.AddWithValue("@RutaFoto", "");
                 else
                     command.Parameters.AddWithValue("@RutaFoto", usuario.foto);
 

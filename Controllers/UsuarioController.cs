@@ -48,12 +48,13 @@ namespace royectoInmobiliaria.net_MVC_.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Loggin(Usuario model)
         {
-            if (UsuarioAutenticado(model.Username, model.Contrasenia))
+					var user = UsuarioAutenticado(model.Username, model.Contrasenia);
+            if (user != null)
             {
                 var claims = new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, model.Username),
-                    new Claim(ClaimTypes.Role, "Administrador")
+                    new Claim(ClaimTypes.Name, user.Username),
+                    new Claim(ClaimTypes.Role, user.Rol)
                 };
 
                 var identity = new ClaimsIdentity(
@@ -80,17 +81,18 @@ namespace royectoInmobiliaria.net_MVC_.Controllers
             return RedirectToAction("Loggin", "Usuario");
         }
 
-        private bool UsuarioAutenticado(string username, string contrasenia)
+        private Usuario UsuarioAutenticado(string username, string contrasenia)
         {
             var usuario = usuarioReositorio.GetUsuarioXUsername(username);
             if(usuario == null){
-                return false;
+                return null;
             }else{
-                if (usuario.Contrasenia == contrasenia && usuario.UsuarioId > 0){
-                    return true;
+							string hashed = GenerarHash(contrasenia);
+                if (usuario.Contrasenia == hashed){
+                    return usuario;
                 }
             }
-            return false;
+            return null;
         }
 
         // GET: Usuario
@@ -160,26 +162,15 @@ namespace royectoInmobiliaria.net_MVC_.Controllers
         [Authorize(Roles = "Administrador")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Crear(Usuario Usuario, IFormFile foto)
+        public ActionResult Crear(Usuario Usuario)
         {
             try
             {
-                //string contraseniaHash = usuarioReositorio.GenerarHash(Usuario.Contrasenia);
-
-
-                string hashed = Convert.ToBase64String(
-                    KeyDerivation.Pbkdf2(
-                        password: Usuario.Contrasenia,
-                        salt: System.Text.Encoding.ASCII.GetBytes("ANTICONSTITUCIONALMENTE"),
-                        prf: KeyDerivationPrf.HMACSHA1,
-                        iterationCount: 1000,
-                        numBytesRequested: 256 / 8
-                    )
-                );
+                string hashed = GenerarHash(Usuario.Contrasenia);
                 Usuario.Contrasenia = hashed;
 
                 var nbreRnd = Guid.NewGuid(); //posible nombre aleatorio
-
+								int res = usuarioReositorio.Crear(Usuario);
                 if (Usuario.Fotofisica != null && Usuario.UsuarioId > 0)
                 {
                     string wwwPath = environment.WebRootPath;
@@ -284,6 +275,20 @@ namespace royectoInmobiliaria.net_MVC_.Controllers
                 return View();
             }
         }
+
+				private string GenerarHash(string password)
+				{
+					string hashed = Convert.ToBase64String(
+                    KeyDerivation.Pbkdf2(
+                        password: password,
+                        salt: System.Text.Encoding.ASCII.GetBytes("ANTICONSTITUCIONALMENTE"),
+                        prf: KeyDerivationPrf.HMACSHA1,
+                        iterationCount: 1000,
+                        numBytesRequested: 256 / 8
+                    )
+                );
+								return hashed;
+				}
     }
 }
 //INSERT INTO `usuario` (`UsuarioId`, `Username`, `password`, `Rolid`, `nombre`, `apellido`, `foto`) VALUES (NULL, 'Conejo', 'zanahoria', '1', 'Bugs', 'Bunny', ''), (NULL, 'Juan', 'soyJuan', '1', 'Juan', 'Castro', ''), (NULL, 'flash', 'force', '1', 'Barry', 'Allen', ''); 
