@@ -9,169 +9,169 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = royectoInmobiliaria.net_MVC_
 build_property.RootNamespace = royectoInmobiliaria.net_MVC_
-build_property.ProjectDir = C:\Users\POSITIVO BGH\Desktop\Proyectos . Net\royectoInmobiliaria.net(MVC)\
+build_property.ProjectDir = C:\Users\POSITIVO BGH\Desktop\InmobiliariaC-.NET\
 build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\POSITIVO BGH\Desktop\Proyectos . Net\royectoInmobiliaria.net(MVC)
+build_property.MSBuildProjectDirectory = C:\Users\POSITIVO BGH\Desktop\InmobiliariaC-.NET
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/POSITIVO BGH/Desktop/Proyectos . Net/royectoInmobiliaria.net(MVC)/Views/Contrato/Borrar.cshtml]
+[C:/Users/POSITIVO BGH/Desktop/InmobiliariaC-.NET/Views/Contrato/Borrar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udHJhdG9cQm9ycmFyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/POSITIVO BGH/Desktop/Proyectos . Net/royectoInmobiliaria.net(MVC)/Views/Contrato/Crear.cshtml]
+[C:/Users/POSITIVO BGH/Desktop/InmobiliariaC-.NET/Views/Contrato/Crear.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udHJhdG9cQ3JlYXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/POSITIVO BGH/Desktop/Proyectos . Net/royectoInmobiliaria.net(MVC)/Views/Contrato/Detalles.cshtml]
+[C:/Users/POSITIVO BGH/Desktop/InmobiliariaC-.NET/Views/Contrato/Detalles.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udHJhdG9cRGV0YWxsZXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/POSITIVO BGH/Desktop/Proyectos . Net/royectoInmobiliaria.net(MVC)/Views/Contrato/Editar.cshtml]
+[C:/Users/POSITIVO BGH/Desktop/InmobiliariaC-.NET/Views/Contrato/Editar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udHJhdG9cRWRpdGFyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/POSITIVO BGH/Desktop/Proyectos . Net/royectoInmobiliaria.net(MVC)/Views/Contrato/Index.cshtml]
+[C:/Users/POSITIVO BGH/Desktop/InmobiliariaC-.NET/Views/Contrato/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udHJhdG9cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/POSITIVO BGH/Desktop/Proyectos . Net/royectoInmobiliaria.net(MVC)/Views/Home/Index.cshtml]
+[C:/Users/POSITIVO BGH/Desktop/InmobiliariaC-.NET/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/POSITIVO BGH/Desktop/Proyectos . Net/royectoInmobiliaria.net(MVC)/Views/Home/Privacy.cshtml]
+[C:/Users/POSITIVO BGH/Desktop/InmobiliariaC-.NET/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/POSITIVO BGH/Desktop/Proyectos . Net/royectoInmobiliaria.net(MVC)/Views/Inmueble/Borrar.cshtml]
+[C:/Users/POSITIVO BGH/Desktop/InmobiliariaC-.NET/Views/Inmueble/Borrar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5tdWVibGVcQm9ycmFyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/POSITIVO BGH/Desktop/Proyectos . Net/royectoInmobiliaria.net(MVC)/Views/Inmueble/Crear.cshtml]
+[C:/Users/POSITIVO BGH/Desktop/InmobiliariaC-.NET/Views/Inmueble/Crear.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5tdWVibGVcQ3JlYXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/POSITIVO BGH/Desktop/Proyectos . Net/royectoInmobiliaria.net(MVC)/Views/Inmueble/Detalles.cshtml]
+[C:/Users/POSITIVO BGH/Desktop/InmobiliariaC-.NET/Views/Inmueble/Detalles.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5tdWVibGVcRGV0YWxsZXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/POSITIVO BGH/Desktop/Proyectos . Net/royectoInmobiliaria.net(MVC)/Views/Inmueble/Editar.cshtml]
+[C:/Users/POSITIVO BGH/Desktop/InmobiliariaC-.NET/Views/Inmueble/Editar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5tdWVibGVcRWRpdGFyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/POSITIVO BGH/Desktop/Proyectos . Net/royectoInmobiliaria.net(MVC)/Views/Inmueble/Index.cshtml]
+[C:/Users/POSITIVO BGH/Desktop/InmobiliariaC-.NET/Views/Inmueble/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5tdWVibGVcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/POSITIVO BGH/Desktop/Proyectos . Net/royectoInmobiliaria.net(MVC)/Views/Inquilino/Borrar.cshtml]
+[C:/Users/POSITIVO BGH/Desktop/InmobiliariaC-.NET/Views/Inquilino/Borrar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5xdWlsaW5vXEJvcnJhci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/POSITIVO BGH/Desktop/Proyectos . Net/royectoInmobiliaria.net(MVC)/Views/Inquilino/Detalles.cshtml]
+[C:/Users/POSITIVO BGH/Desktop/InmobiliariaC-.NET/Views/Inquilino/Detalles.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5xdWlsaW5vXERldGFsbGVzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/POSITIVO BGH/Desktop/Proyectos . Net/royectoInmobiliaria.net(MVC)/Views/Inquilino/Editar.cshtml]
+[C:/Users/POSITIVO BGH/Desktop/InmobiliariaC-.NET/Views/Inquilino/Editar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5xdWlsaW5vXEVkaXRhci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/POSITIVO BGH/Desktop/Proyectos . Net/royectoInmobiliaria.net(MVC)/Views/Inquilino/Index.cshtml]
+[C:/Users/POSITIVO BGH/Desktop/InmobiliariaC-.NET/Views/Inquilino/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5xdWlsaW5vXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/POSITIVO BGH/Desktop/Proyectos . Net/royectoInmobiliaria.net(MVC)/Views/Inquilino/Nuevo.cshtml]
+[C:/Users/POSITIVO BGH/Desktop/InmobiliariaC-.NET/Views/Inquilino/Nuevo.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5xdWlsaW5vXE51ZXZvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/POSITIVO BGH/Desktop/Proyectos . Net/royectoInmobiliaria.net(MVC)/Views/Pago/Borrar.cshtml]
+[C:/Users/POSITIVO BGH/Desktop/InmobiliariaC-.NET/Views/Pago/Borrar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFnb1xCb3JyYXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/POSITIVO BGH/Desktop/Proyectos . Net/royectoInmobiliaria.net(MVC)/Views/Pago/Crear.cshtml]
+[C:/Users/POSITIVO BGH/Desktop/InmobiliariaC-.NET/Views/Pago/Crear.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFnb1xDcmVhci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/POSITIVO BGH/Desktop/Proyectos . Net/royectoInmobiliaria.net(MVC)/Views/Pago/Detalles.cshtml]
+[C:/Users/POSITIVO BGH/Desktop/InmobiliariaC-.NET/Views/Pago/Detalles.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFnb1xEZXRhbGxlcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/POSITIVO BGH/Desktop/Proyectos . Net/royectoInmobiliaria.net(MVC)/Views/Pago/Editar.cshtml]
+[C:/Users/POSITIVO BGH/Desktop/InmobiliariaC-.NET/Views/Pago/Editar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFnb1xFZGl0YXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/POSITIVO BGH/Desktop/Proyectos . Net/royectoInmobiliaria.net(MVC)/Views/Pago/Index.cshtml]
+[C:/Users/POSITIVO BGH/Desktop/InmobiliariaC-.NET/Views/Pago/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFnb1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/POSITIVO BGH/Desktop/Proyectos . Net/royectoInmobiliaria.net(MVC)/Views/Propietario/Borrar.cshtml]
+[C:/Users/POSITIVO BGH/Desktop/InmobiliariaC-.NET/Views/Propietario/Borrar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvcGlldGFyaW9cQm9ycmFyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/POSITIVO BGH/Desktop/Proyectos . Net/royectoInmobiliaria.net(MVC)/Views/Propietario/Detalles.cshtml]
+[C:/Users/POSITIVO BGH/Desktop/InmobiliariaC-.NET/Views/Propietario/Detalles.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvcGlldGFyaW9cRGV0YWxsZXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/POSITIVO BGH/Desktop/Proyectos . Net/royectoInmobiliaria.net(MVC)/Views/Propietario/Editar.cshtml]
+[C:/Users/POSITIVO BGH/Desktop/InmobiliariaC-.NET/Views/Propietario/Editar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvcGlldGFyaW9cRWRpdGFyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/POSITIVO BGH/Desktop/Proyectos . Net/royectoInmobiliaria.net(MVC)/Views/Propietario/Index.cshtml]
+[C:/Users/POSITIVO BGH/Desktop/InmobiliariaC-.NET/Views/Propietario/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvcGlldGFyaW9cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/POSITIVO BGH/Desktop/Proyectos . Net/royectoInmobiliaria.net(MVC)/Views/Propietario/Nuevo.cshtml]
+[C:/Users/POSITIVO BGH/Desktop/InmobiliariaC-.NET/Views/Propietario/Nuevo.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvcGlldGFyaW9cTnVldm8uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/POSITIVO BGH/Desktop/Proyectos . Net/royectoInmobiliaria.net(MVC)/Views/Shared/Error.cshtml]
+[C:/Users/POSITIVO BGH/Desktop/InmobiliariaC-.NET/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/POSITIVO BGH/Desktop/Proyectos . Net/royectoInmobiliaria.net(MVC)/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/POSITIVO BGH/Desktop/InmobiliariaC-.NET/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/POSITIVO BGH/Desktop/Proyectos . Net/royectoInmobiliaria.net(MVC)/Views/Usuario/Borrar.cshtml]
+[C:/Users/POSITIVO BGH/Desktop/InmobiliariaC-.NET/Views/Usuario/Borrar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb1xCb3JyYXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/POSITIVO BGH/Desktop/Proyectos . Net/royectoInmobiliaria.net(MVC)/Views/Usuario/CambioContrasenia.cshtml]
+[C:/Users/POSITIVO BGH/Desktop/InmobiliariaC-.NET/Views/Usuario/CambioContrasenia.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb1xDYW1iaW9Db250cmFzZW5pYS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/POSITIVO BGH/Desktop/Proyectos . Net/royectoInmobiliaria.net(MVC)/Views/Usuario/Crear.cshtml]
+[C:/Users/POSITIVO BGH/Desktop/InmobiliariaC-.NET/Views/Usuario/Crear.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb1xDcmVhci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/POSITIVO BGH/Desktop/Proyectos . Net/royectoInmobiliaria.net(MVC)/Views/Usuario/Detalles.cshtml]
+[C:/Users/POSITIVO BGH/Desktop/InmobiliariaC-.NET/Views/Usuario/Detalles.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb1xEZXRhbGxlcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/POSITIVO BGH/Desktop/Proyectos . Net/royectoInmobiliaria.net(MVC)/Views/Usuario/Editar.cshtml]
+[C:/Users/POSITIVO BGH/Desktop/InmobiliariaC-.NET/Views/Usuario/Editar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb1xFZGl0YXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/POSITIVO BGH/Desktop/Proyectos . Net/royectoInmobiliaria.net(MVC)/Views/Usuario/Index.cshtml]
+[C:/Users/POSITIVO BGH/Desktop/InmobiliariaC-.NET/Views/Usuario/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/POSITIVO BGH/Desktop/Proyectos . Net/royectoInmobiliaria.net(MVC)/Views/Usuario/Loggin.cshtml]
+[C:/Users/POSITIVO BGH/Desktop/InmobiliariaC-.NET/Views/Usuario/Loggin.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb1xMb2dnaW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/POSITIVO BGH/Desktop/Proyectos . Net/royectoInmobiliaria.net(MVC)/Views/Usuario/MiPerfil.cshtml]
+[C:/Users/POSITIVO BGH/Desktop/InmobiliariaC-.NET/Views/Usuario/MiPerfil.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb1xNaVBlcmZpbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/POSITIVO BGH/Desktop/Proyectos . Net/royectoInmobiliaria.net(MVC)/Views/_ViewImports.cshtml]
+[C:/Users/POSITIVO BGH/Desktop/InmobiliariaC-.NET/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/POSITIVO BGH/Desktop/Proyectos . Net/royectoInmobiliaria.net(MVC)/Views/_ViewStart.cshtml]
+[C:/Users/POSITIVO BGH/Desktop/InmobiliariaC-.NET/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/POSITIVO BGH/Desktop/Proyectos . Net/royectoInmobiliaria.net(MVC)/Views/Shared/_Layout.cshtml]
+[C:/Users/POSITIVO BGH/Desktop/InmobiliariaC-.NET/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-abv9qzjgt5

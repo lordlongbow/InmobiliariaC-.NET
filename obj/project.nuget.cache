@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "KQHohFm580glOxriIIIeuPehdfJ9Nx+FvbJOSJocsLSCDTYPFNZyG0uc47axj6wmyx8sJAc8khaFcWkl+ky2Wg==",
+  "dgSpecHash": "Sm3g39vQK2VWyKyLNqsKq8fDx39VDXWlNVZ5OdVTbhRc21Yvf/Ffdr51vDNE0oMOZV501Mc0BoMvziufiv0rTg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\POSITIVO BGH\\Desktop\\Proyectos . Net\\royectoInmobiliaria.net(MVC)\\royectoInmobiliaria.net(MVC).csproj",
+  "projectFilePath": "C:\\Users\\POSITIVO BGH\\Desktop\\InmobiliariaC-.NET\\royectoInmobiliaria.net(MVC).csproj",
   "expectedPackageFiles": [
     "C:\\Users\\POSITIVO BGH\\.nuget\\packages\\google.protobuf\\3.21.9\\google.protobuf.3.21.9.nupkg.sha512",
     "C:\\Users\\POSITIVO BGH\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",

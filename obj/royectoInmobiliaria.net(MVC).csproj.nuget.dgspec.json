@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\POSITIVO BGH\\Desktop\\Proyectos . Net\\royectoInmobiliaria.net(MVC)\\royectoInmobiliaria.net(MVC).csproj": {}
+    "C:\\Users\\POSITIVO BGH\\Desktop\\InmobiliariaC-.NET\\royectoInmobiliaria.net(MVC).csproj": {}
   },
   "projects": {
-    "C:\\Users\\POSITIVO BGH\\Desktop\\Proyectos . Net\\royectoInmobiliaria.net(MVC)\\royectoInmobiliaria.net(MVC).csproj": {
+    "C:\\Users\\POSITIVO BGH\\Desktop\\InmobiliariaC-.NET\\royectoInmobiliaria.net(MVC).csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\POSITIVO BGH\\Desktop\\Proyectos . Net\\royectoInmobiliaria.net(MVC)\\royectoInmobiliaria.net(MVC).csproj",
+        "projectUniqueName": "C:\\Users\\POSITIVO BGH\\Desktop\\InmobiliariaC-.NET\\royectoInmobiliaria.net(MVC).csproj",
         "projectName": "royectoInmobiliaria.net(MVC)",
-        "projectPath": "C:\\Users\\POSITIVO BGH\\Desktop\\Proyectos . Net\\royectoInmobiliaria.net(MVC)\\royectoInmobiliaria.net(MVC).csproj",
+        "projectPath": "C:\\Users\\POSITIVO BGH\\Desktop\\InmobiliariaC-.NET\\royectoInmobiliaria.net(MVC).csproj",
         "packagesPath": "C:\\Users\\POSITIVO BGH\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\POSITIVO BGH\\Desktop\\Proyectos . Net\\royectoInmobiliaria.net(MVC)\\obj\\",
+        "outputPath": "C:\\Users\\POSITIVO BGH\\Desktop\\InmobiliariaC-.NET\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\POSITIVO BGH\\AppData\\Roaming\\NuGet\\NuGet.Config"
