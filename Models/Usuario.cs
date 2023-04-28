@@ -26,8 +26,8 @@ public class Usuario
     [Required]
     public string Apellido { get; set; }
   
-    [Required]
+  
     public string? foto { get; set; }
-     [Required]
+
     public IFormFile? Fotofisica { get; set; }
 }

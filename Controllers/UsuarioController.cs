@@ -48,7 +48,7 @@ namespace royectoInmobiliaria.net_MVC_.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Loggin(Usuario model)
         {
-					var user = UsuarioAutenticado(model.Username, model.Contrasenia);
+            var user = UsuarioAutenticado(model.Username, model.Contrasenia);
             if (user != null)
             {
                 var claims = new Claim[]
@@ -84,11 +84,15 @@ namespace royectoInmobiliaria.net_MVC_.Controllers
         private Usuario UsuarioAutenticado(string username, string contrasenia)
         {
             var usuario = usuarioReositorio.GetUsuarioXUsername(username);
-            if(usuario == null){
+            if (usuario == null)
+            {
                 return null;
-            }else{
-							string hashed = GenerarHash(contrasenia);
-                if (usuario.Contrasenia == hashed){
+            }
+            else
+            {
+                string hashed = GenerarHash(contrasenia);
+                if (usuario.Contrasenia == hashed)
+                {
                     return usuario;
                 }
             }
@@ -110,38 +114,6 @@ namespace royectoInmobiliaria.net_MVC_.Controllers
         {
             Usuario usuario = usuarioReositorio.GetUsuario(id);
             return View(usuario);
-        }
-
-
-        [Authorize]
-        public ActionResult CambioContrasenia(int id)
-        {
-            Usuario SuuestoUsuario = usuarioReositorio.GetUsuarioXUsername(User.Identity.Name);
-            if (SuuestoUsuario.UsuarioId != id)
-            {
-                return RedirectToAction(nameof(Index), "Home");
-            }
-            
-            return View(SuuestoUsuario);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize]
-        public ActionResult CambioContrasenia(Usuario Usuario)
-        {
-            if (ModelState.IsValid)
-                return View();
-            try
-            {
-                usuarioReositorio.CambiarContrasenia(Usuario); 
-                return RedirectToAction("Index");
-            }
-            catch(Exception e)
-            {
-               throw;
-            }
-            return View();
         }
 
         public ActionResult MiPerfil(int id)
@@ -170,7 +142,7 @@ namespace royectoInmobiliaria.net_MVC_.Controllers
                 Usuario.Contrasenia = hashed;
 
                 var nbreRnd = Guid.NewGuid(); //posible nombre aleatorio
-								int res = usuarioReositorio.Crear(Usuario);
+                int res = usuarioReositorio.Crear(Usuario);
                 if (Usuario.Fotofisica != null && Usuario.UsuarioId > 0)
                 {
                     string wwwPath = environment.WebRootPath;
@@ -228,30 +200,63 @@ namespace royectoInmobiliaria.net_MVC_.Controllers
                 {
                     var usuarioActual = usuarioReositorio.GetUsuarioXUsername(User.Identity.Name);
                     if (usuarioActual.UsuarioId != id)
+                    {
                         return RedirectToAction(nameof(Index), "Home");
-                }
-
-                Usuario.UsuarioId = id;
-                usuarioReositorio.Actualizar(id, Usuario);
-
-                return View(Usuario);
+                    }
+                    Usuario.UsuarioId = id;
+                if (Usuario.Contrasenia == null || Usuario.Contrasenia == "")
+                {
+                        Usuario.Contrasenia = usuarioActual.Contrasenia;
+                }else{
+                        string hashed = GenerarHash(Usuario.Contrasenia);
+                        Usuario.Contrasenia = hashed;                  
+                    }
+                    
+                  
+                if (Usuario.Fotofisica != null)
+                {
+                    string wwwPath = environment.WebRootPath;
+                    string path = Path.Combine(wwwPath, "imagenes");
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+                    string fileName =
+                        "avatar_"
+                        + Usuario.UsuarioId
+                        + Path.GetExtension(Usuario.Fotofisica.FileName);
+                    string pathCompleto = Path.Combine(path, fileName);
+                    Usuario.foto = Path.Combine("/imagenes", fileName);
+                    using (FileStream stream = new FileStream(pathCompleto, FileMode.Create))
+                    {
+                     Usuario.Fotofisica.CopyTo(stream);
+                    }
+                }else{
+                    Usuario.foto = usuarioActual.foto;
+                    }
+                
+                 usuarioReositorio.Actualizar(id, Usuario);
+                            
+                return RedirectToAction(nameof(Index),"Home");
+                
             }
-            catch (Exception)
+            }catch (Exception e)
             {
                 throw;
             }
+            return View(Usuario);
         }
 
         // GET: Usuario/Delete/5
         [Authorize(Roles = "Administrador")]
         public ActionResult Borrar(int id)
         {
-              if (!User.IsInRole("Administrador")){
-                 var usuario = usuarioReositorio.GetUsuario(id);
-            return View(usuario);
-              }
-                return RedirectToAction(nameof(Index));
-           
+            if (User.IsInRole("Administrador"))
+            {
+                var usuario = usuarioReositorio.GetUsuario(id);
+                return View(usuario);
+            }
+            return RedirectToAction(nameof(Index));
         }
 
         // POST: Usuario/Delete/5
@@ -262,13 +267,13 @@ namespace royectoInmobiliaria.net_MVC_.Controllers
         {
             try
             {
-                 if (!User.IsInRole("Administrador")){
-                     Usuario.UsuarioId = id;
-                usuarioReositorio.Borrar(id);
+                if (User.IsInRole("Administrador"))
+                {
+                    Usuario.UsuarioId = id;
+                    usuarioReositorio.Borrar(id);
+                    return RedirectToAction(nameof(Index));
+                }
                 return RedirectToAction(nameof(Index));
-                 }
-                   return RedirectToAction(nameof(Index));
-               
             }
             catch
             {
@@ -276,19 +281,19 @@ namespace royectoInmobiliaria.net_MVC_.Controllers
             }
         }
 
-				private string GenerarHash(string password)
-				{
-					string hashed = Convert.ToBase64String(
-                    KeyDerivation.Pbkdf2(
-                        password: password,
-                        salt: System.Text.Encoding.ASCII.GetBytes("ANTICONSTITUCIONALMENTE"),
-                        prf: KeyDerivationPrf.HMACSHA1,
-                        iterationCount: 1000,
-                        numBytesRequested: 256 / 8
-                    )
-                );
-								return hashed;
-				}
+        private string GenerarHash(string password)
+        {
+            string hashed = Convert.ToBase64String(
+                KeyDerivation.Pbkdf2(
+                    password: password,
+                    salt: System.Text.Encoding.ASCII.GetBytes("ANTICONSTITUCIONALMENTE"),
+                    prf: KeyDerivationPrf.HMACSHA1,
+                    iterationCount: 1000,
+                    numBytesRequested: 256 / 8
+                )
+            );
+            return hashed;
+        }
     }
 }
-//INSERT INTO `usuario` (`UsuarioId`, `Username`, `password`, `Rolid`, `nombre`, `apellido`, `foto`) VALUES (NULL, 'Conejo', 'zanahoria', '1', 'Bugs', 'Bunny', ''), (NULL, 'Juan', 'soyJuan', '1', 'Juan', 'Castro', ''), (NULL, 'flash', 'force', '1', 'Barry', 'Allen', ''); 
+//INSERT INTO `usuario` (`UsuarioId`, `Username`, `password`, `Rolid`, `nombre`, `apellido`, `foto`) VALUES (NULL, 'Conejo', 'zanahoria', '1', 'Bugs', 'Bunny', ''), (NULL, 'Juan', 'soyJuan', '1', 'Juan', 'Castro', ''), (NULL, 'flash', 'force', '1', 'Barry', 'Allen', '');

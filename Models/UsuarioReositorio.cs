@@ -134,9 +134,13 @@ public class UsuarioReositorio
                             Contrasenia = reader.GetString(nameof(Usuario.Contrasenia)),
                             RolId = reader.GetInt32(nameof(Usuario.RolId)),
                             Nombre = reader.GetString(nameof(Usuario.Nombre)),
-                            Apellido = reader.GetString(nameof(Usuario.Apellido)),
-                            foto = reader.GetString(nameof(Usuario.foto))
-                        };
+                            Apellido = reader.GetString(nameof(Usuario.Apellido))};
+
+                            if (!reader.IsDBNull(reader.GetOrdinal("foto"))) {
+                        usuario.foto = reader.GetString(reader.GetOrdinal("foto"));
+                    }
+                       
+                        
                         Rol rol = new Rol() { Descricion = reader.GetString("Descricion") };
                         usuario.Rol = rol.Descricion;
                     }
@@ -207,7 +211,11 @@ public class UsuarioReositorio
                 command.Parameters.AddWithValue("@Contrasenia", Usuario.Contrasenia);
                 command.Parameters.AddWithValue("@Nombre", Usuario.Nombre);
                 command.Parameters.AddWithValue("@Apellido", Usuario.Apellido);
-                command.Parameters.AddWithValue("@foto", Usuario.foto);
+              if (String.IsNullOrEmpty(Usuario.foto))
+                    command.Parameters.AddWithValue("@foto", "");
+                else
+                    command.Parameters.AddWithValue("@foto", Usuario.foto);
+
                 connection.Open();
                 res = command.ExecuteNonQuery();
             }
