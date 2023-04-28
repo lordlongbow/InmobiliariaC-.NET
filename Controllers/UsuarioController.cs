@@ -98,7 +98,7 @@ namespace royectoInmobiliaria.net_MVC_.Controllers
             }
             return null;
         }
-
+        [Authorize]
         // GET: Usuario
         public ActionResult Index()
         {
@@ -194,25 +194,31 @@ namespace royectoInmobiliaria.net_MVC_.Controllers
         [Authorize]
         public ActionResult Editar(int id, Usuario Usuario)
         {
+               ViewBag.Roles = rolReositorio.GetRoles();
             try
             {
+                //Si no es administrador que busque quien esta logueado
                 if (!User.IsInRole("Administrador"))
                 {
                     var usuarioActual = usuarioReositorio.GetUsuarioXUsername(User.Identity.Name);
                     if (usuarioActual.UsuarioId != id)
-                    {
+                    {//Si el erfil que quiere editar no  es el suyo no lo deberia editar y redirige a home
                         return RedirectToAction(nameof(Index), "Home");
                     }
+
                     Usuario.UsuarioId = id;
+                    //si la contrasenia esta nula o vacia es orque no cargo nada
                 if (Usuario.Contrasenia == null || Usuario.Contrasenia == "")
                 {
                         Usuario.Contrasenia = usuarioActual.Contrasenia;
                 }else{
+                    //caso contrario es xq la esta cambiando, entonces se hashea con la funcion de abajo
                         string hashed = GenerarHash(Usuario.Contrasenia);
                         Usuario.Contrasenia = hashed;                  
                     }
                     
-                  
+                //controla la foto si viene nula   
+                //si no viene nula que haga todo el tto de la foto
                 if (Usuario.Fotofisica != null)
                 {
                     string wwwPath = environment.WebRootPath;
@@ -232,12 +238,12 @@ namespace royectoInmobiliaria.net_MVC_.Controllers
                      Usuario.Fotofisica.CopyTo(stream);
                     }
                 }else{
+                    //sino es la misma foto, no la cambia
                     Usuario.foto = usuarioActual.foto;
                     }
                 
-                 usuarioReositorio.Actualizar(id, Usuario);
-                            
-                return RedirectToAction(nameof(Index),"Home");
+                usuarioReositorio.Actualizar(Usuario.UsuarioId, Usuario);
+                return RedirectToAction(nameof(Index));
                 
             }
             }catch (Exception e)
