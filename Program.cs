@@ -10,7 +10,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 	{
 		options.LoginPath = "/Usuario/Loggin";
 		options.LogoutPath = "/Usuario/Logout";
-
+        options.AccessDeniedPath = "/Home";
 	});
 
   

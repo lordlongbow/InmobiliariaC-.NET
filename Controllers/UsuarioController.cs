@@ -98,7 +98,7 @@ namespace royectoInmobiliaria.net_MVC_.Controllers
             }
             return null;
         }
-        [Authorize]
+        [Authorize(Roles = "Administrador") ]
         // GET: Usuario
         public ActionResult Index()
         {
@@ -107,6 +107,7 @@ namespace royectoInmobiliaria.net_MVC_.Controllers
             var lista = usuarioReositorio.GetUsuarios();
 
             return View(lista);
+           
         }
 
         // GET: Usuario/Details/5
@@ -116,18 +117,22 @@ namespace royectoInmobiliaria.net_MVC_.Controllers
             return View(usuario);
         }
 
-        public ActionResult MiPerfil(int id)
+        public ActionResult MiPerfil()
         {
             Usuario usuario = usuarioReositorio.GetUsuarioXUsername(User.Identity.Name);
-            return View(usuario);
+            ViewBag.Roles = rolReositorio.GetRoles();
+            return View("Editar", usuario);
         }
 
         // GET: Usuario/Create
         [Authorize(Roles = "Administrador")]
         public ActionResult Crear()
         {
+
+            if(User.IsInRole("Administrador")){
             ViewBag.Roles = rolReositorio.GetRoles();
-            return View();
+            return View();}
+            return RedirectToAction("Index", "Home");
         }
 
         // POST: Usuario/Create
@@ -194,29 +199,37 @@ namespace royectoInmobiliaria.net_MVC_.Controllers
         [Authorize]
         public ActionResult Editar(int id, Usuario Usuario)
         {
+            Usuario usuarioActual;
                ViewBag.Roles = rolReositorio.GetRoles();
             try
             {
+
                 //Si no es administrador que busque quien esta logueado
                 if (!User.IsInRole("Administrador"))
                 {
-                    var usuarioActual = usuarioReositorio.GetUsuarioXUsername(User.Identity.Name);
-                    if (usuarioActual.UsuarioId != id)
+                     usuarioActual  = usuarioReositorio.GetUsuarioXUsername(User.Identity.Name);
+                    if (usuarioActual.UsuarioId != Usuario.UsuarioId)
                     {//Si el erfil que quiere editar no  es el suyo no lo deberia editar y redirige a home
                         return RedirectToAction(nameof(Index), "Home");
                     }
-
-                    Usuario.UsuarioId = id;
+                }
+                else
+                {
+                    usuarioActual = usuarioReositorio.GetUsuario(Usuario.UsuarioId);
+                }
+                    
                     //si la contrasenia esta nula o vacia es orque no cargo nada
                 if (Usuario.Contrasenia == null || Usuario.Contrasenia == "")
                 {
                         Usuario.Contrasenia = usuarioActual.Contrasenia;
-                }else{
+                }
+                else
+                {
                     //caso contrario es xq la esta cambiando, entonces se hashea con la funcion de abajo
                         string hashed = GenerarHash(Usuario.Contrasenia);
                         Usuario.Contrasenia = hashed;                  
-                    }
-                    
+                }
+             
                 //controla la foto si viene nula   
                 //si no viene nula que haga todo el tto de la foto
                 if (Usuario.Fotofisica != null)
@@ -237,16 +250,18 @@ namespace royectoInmobiliaria.net_MVC_.Controllers
                     {
                      Usuario.Fotofisica.CopyTo(stream);
                     }
-                }else{
+                }
+                else
+                {
                     //sino es la misma foto, no la cambia
                     Usuario.foto = usuarioActual.foto;
-                    }
+                }
                 
                 usuarioReositorio.Actualizar(Usuario.UsuarioId, Usuario);
                 return RedirectToAction(nameof(Index));
                 
             }
-            }catch (Exception e)
+            catch (Exception e)
             {
                 throw;
             }

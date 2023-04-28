@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "+l96o6DRHcRe8jNPplPwSgIRCvSm9XpCcUnFyt5+cKo=",
+  "Hash": "5QFn+qfAqshczlUmCEyl7BBsQasrDxh9TThUJVw7qEs=",
   "Source": "royectoInmobiliaria.net(MVC)",
   "BasePath": "_content/royectoInmobiliaria.net(MVC)",
   "Mode": "Default",
@@ -185,6 +185,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\imagenes\\avatar_21.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\POSITIVO BGH\\Desktop\\InmobiliariaC-.NET\\wwwroot\\imagenes\\avatar_22.jpg",
+      "SourceId": "royectoInmobiliaria.net(MVC)",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\POSITIVO BGH\\Desktop\\InmobiliariaC-.NET\\wwwroot\\",
+      "BasePath": "_content/royectoInmobiliaria.net(MVC)",
+      "RelativePath": "imagenes/avatar_22.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\imagenes\\avatar_22.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\POSITIVO BGH\\Desktop\\InmobiliariaC-.NET\\wwwroot\\imagenes\\avatar_22.png",
+      "SourceId": "royectoInmobiliaria.net(MVC)",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\POSITIVO BGH\\Desktop\\InmobiliariaC-.NET\\wwwroot\\",
+      "BasePath": "_content/royectoInmobiliaria.net(MVC)",
+      "RelativePath": "imagenes/avatar_22.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\imagenes\\avatar_22.png"
     },
     {
       "Identity": "C:\\Users\\POSITIVO BGH\\Desktop\\InmobiliariaC-.NET\\wwwroot\\imagenes\\c4881297-3be5-4f68-92bb-43c522126b60.JPG",
