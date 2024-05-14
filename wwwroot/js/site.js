@@ -2,3 +2,18 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
+
+
+$(document).ready(function () {
+    cargarVistasMenuLateral("_inmueblesDisponibles");
+})
+function cargarVistasMenuLateral(opcionMenu){
+    $.ajax({
+        url: "/Home/CargarVistasMenuLateral",
+        type: "GET",
+        data: { opcionMenu: opcionMenu },
+        success: function (result) {
+            $("#contenedorParcial").html(result);
+        }
+    })
+}

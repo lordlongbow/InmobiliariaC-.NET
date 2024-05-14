@@ -16,8 +16,7 @@ public class PagoReositorio
             @"SELECT pago.id_pago, pago.nroPago, pago.importe, pago.fecha, pago.ContratoId, pago.InmuebleId , contrato.id_contrato as ContratoID, inmueble.precio, inmueble.direccion, contrato.id_inquilino, inquilino.nombre, inquilino.apellido FROM `pago` 
         INNER JOIN contrato On contrato.id_contrato = pago.ContratoId 
         INNER JOIN inmueble ON inmueble.id_inmueble = pago.InmuebleId 
-        INNER JOIN inquilino ON inquilino.Id = contrato.id_inquilino; 
-";
+        INNER JOIN inquilino ON inquilino.Id = contrato.id_inquilino; ";
         using (MySqlConnection conexion = new MySqlConnection(connectingString))
         {
             conexion.Open();
@@ -121,134 +120,127 @@ public class PagoReositorio
         return lista;
     }
 
-   public Pago GetPago(int id)
-{
-    Pago pago = null; 
-    string query =
-        @"SELECT pago.id_pago, pago.nroPago, pago.importe, pago.fecha, pago.ContratoId, pago.InmuebleId , contrato.id_contrato, inmueble.precio, inmueble.direccion, contrato.id_inquilino, inquilino.nombre, inquilino.apellido FROM `pago` INNER JOIN contrato On contrato.id_contrato = pago.ContratoId INNER JOIN inmueble ON inmueble.id_inmueble = pago.InmuebleId INNER JOIN inquilino ON inquilino.Id = contrato.id_inquilino WHERE pago.id_pago = @id OR pago.id_pago = pago.ContratoId;";
-    using (MySqlConnection conexion = new MySqlConnection(connectingString))
+    public Pago GetPago(int id)
     {
-        conexion.Open();
-        MySqlCommand comando = new MySqlCommand(query, conexion);
-        comando.Parameters.AddWithValue("@id", id);
-        using (MySqlDataReader reader = comando.ExecuteReader())
+        Pago pago = null;
+        string query =
+            @"SELECT pago.id_pago, pago.nroPago, pago.importe, pago.fecha, pago.ContratoId, pago.InmuebleId , contrato.id_contrato, inmueble.precio, inmueble.direccion, contrato.id_inquilino, inquilino.nombre, inquilino.apellido FROM `pago` INNER JOIN contrato On contrato.id_contrato = pago.ContratoId INNER JOIN inmueble ON inmueble.id_inmueble = pago.InmuebleId INNER JOIN inquilino ON inquilino.Id = contrato.id_inquilino WHERE pago.id_pago = @id OR pago.id_pago = pago.ContratoId;";
+        using (MySqlConnection conexion = new MySqlConnection(connectingString))
         {
-            while (reader.Read())
+            conexion.Open();
+            MySqlCommand comando = new MySqlCommand(query, conexion);
+            comando.Parameters.AddWithValue("@id", id);
+            using (MySqlDataReader reader = comando.ExecuteReader())
             {
-                pago = new Pago();
-                pago.PagoId = reader.GetInt32("id_pago");
-                pago.Precio = reader.GetDecimal("importe");
-                pago.Fecha = reader.GetDateTime("fecha");
-                pago.nro_pago = reader.GetInt32("nroPago");
-                pago.ContratoId = reader.GetInt32("ContratoId");
-                pago.InmuebleId = reader.GetInt32("InmuebleId");
+                while (reader.Read())
+                {
+                    pago = new Pago();
+                    pago.PagoId = reader.GetInt32("id_pago");
+                    pago.Precio = reader.GetDecimal("importe");
+                    pago.Fecha = reader.GetDateTime("fecha");
+                    pago.nro_pago = reader.GetInt32("nroPago");
+                    pago.ContratoId = reader.GetInt32("ContratoId");
+                    pago.InmuebleId = reader.GetInt32("InmuebleId");
+                }
             }
         }
+        return pago;
     }
-    return pago;
-}
+/*
+    public int CrearAumentado(Pago pago)
+    {
+        using (MySqlConnection conexion = new MySqlConnection(connectingString))
+        {
+            conexion.Open();
+
+            decimal precioInmueble = 0;
+            if (pago.ContratoId != null)
+            {
+                var queryContrato =
+                    "SELECT inmueble.precio FROM inmueble INNER JOIN contrato ON inmueble.id_inmueble = contrato.id_inmueble INNER JOIN pago ON contrato.id_contrato= pago.ContratoId; ";
+                MySqlCommand comandoContrato = new MySqlCommand(queryContrato, conexion);
+                comandoContrato.Parameters.AddWithValue("@ContratoId", pago.ContratoId);
+                precioInmueble = Convert.ToDecimal(comandoContrato.ExecuteScalar());
+            }
+
+            DateTime fechaActual = DateTime.Now;
+
+            int cuotaActual = 0;
+            int cuotaTotal = 0;
+            if (precioInmueble != 0)
+            {
+                var queryCuota = "SELECT COUNT(*) FROM pago WHERE ContratoId = @ContratoId;";
+                MySqlCommand comandoCuota = new MySqlCommand(queryCuota, conexion);
+                comandoCuota.Parameters.AddWithValue("@ContratoId", pago.ContratoId);
+                cuotaActual = Convert.ToInt32(comandoCuota.ExecuteScalar()) + 1;
+            }
+
+            var query =
+                "INSERT INTO `pago`(`nroPago`, `importe`, `fecha`, `ContratoId`, `InmuebleId`) VALUES (@nroPago, @importe, @fecha, @ContratoId, @InmuebleId); SELECT LAST_INSERT_ID();";
+            MySqlCommand comando = new MySqlCommand(query, conexion);
+            comando.Parameters.AddWithValue("@nroPago", pago.nro_pago);
+            comando.Parameters.AddWithValue("@importe", precioInmueble);
+            comando.Parameters.AddWithValue("@fecha", fechaActual);
+            comando.Parameters.AddWithValue("@ContratoId", pago.ContratoId);
+            comando.Parameters.AddWithValue("@InmuebleId", pago.InmuebleId);
+
+            int pagoId = Convert.ToInt32(comando.ExecuteScalar());
+
+            return pagoId;
+        }
+    }
+*/
+
 public int CrearAumentado(Pago pago)
 {
     using (MySqlConnection conexion = new MySqlConnection(connectingString))
     {
         conexion.Open();
 
-        // Obtener el valor del inmueble del contrato si el ContratoId no es nulo
-        decimal precioInmueble = 0;
-        if (pago.ContratoId != null)
-        {
-            var queryContrato = "SELECT inmueble.precio FROM inmueble INNER JOIN contrato ON inmueble.id_inmueble = contrato.id_inmueble INNER JOIN pago ON contrato.id_contrato= pago.ContratoId; ";
-            MySqlCommand comandoContrato = new MySqlCommand(queryContrato, conexion);
-            comandoContrato.Parameters.AddWithValue("@ContratoId", pago.ContratoId);
-            precioInmueble = Convert.ToDecimal(comandoContrato.ExecuteScalar());
-        }
+        // Consultar el precio del inmueble asociado al contrato
+        decimal precioInmueble = ObtenerPrecioInmueble(pago.ContratoId, conexion);
 
-        // Obtener la fecha actual
         DateTime fechaActual = DateTime.Now;
 
-        // Calcular el número de cuota actual y total si el ContratoId no es nulo
-        int cuotaActual = 0;
-        int cuotaTotal = 0;
-        if (precioInmueble != 0)
-        {
-            var queryCuota = "SELECT COUNT(*) FROM pago WHERE ContratoId = @ContratoId;";
-            MySqlCommand comandoCuota = new MySqlCommand(queryCuota, conexion);
-            comandoCuota.Parameters.AddWithValue("@ContratoId", pago.ContratoId);
-            cuotaActual = Convert.ToInt32(comandoCuota.ExecuteScalar()) + 1;
-          
-        }
+        int cuotaActual = ObtenerCuotaActual(pago.ContratoId, conexion) + 1;
 
-        
-
-        // Configurar los parámetros del comando para la inserción
         var query =
             "INSERT INTO `pago`(`nroPago`, `importe`, `fecha`, `ContratoId`, `InmuebleId`) VALUES (@nroPago, @importe, @fecha, @ContratoId, @InmuebleId); SELECT LAST_INSERT_ID();";
         MySqlCommand comando = new MySqlCommand(query, conexion);
-        comando.Parameters.AddWithValue("@nroPago", pago.nro_pago);
+        comando.Parameters.AddWithValue("@nroPago", cuotaActual);
         comando.Parameters.AddWithValue("@importe", precioInmueble);
         comando.Parameters.AddWithValue("@fecha", fechaActual);
         comando.Parameters.AddWithValue("@ContratoId", pago.ContratoId);
         comando.Parameters.AddWithValue("@InmuebleId", pago.InmuebleId);
 
-        // Ejecutamos el comando y obtenemos el ID generado automáticamente
         int pagoId = Convert.ToInt32(comando.ExecuteScalar());
 
-        return pagoId; 
+        return pagoId;
     }
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-    public int Crear(Pago pago)
+    public int Modificar(Pago pago)
     {
+        int res = 0;
+        int id = pago.PagoId;
         using (MySqlConnection conexion = new MySqlConnection(connectingString))
         {
             conexion.Open();
             var query =
-                "INSERT INTO `pago`(`nroPago` as nro_pago,`importe` as Precio,`fecha`,`ContratoId`,`InmuebleId` ) VALUES (@nroPago,@importe,@fecha, @ContratoId, @InmuebleId); SELECT LAST_INSERT_ID();";
-            MySqlCommand comando = new MySqlCommand(query, conexion);
-            comando.Parameters.AddWithValue("@nroPago", pago.nro_pago);
-            comando.Parameters.AddWithValue("@importe", pago.Precio);
-            comando.Parameters.AddWithValue("@fecha", pago.Fecha);
-            comando.Parameters.AddWithValue("@ContratoId", pago.ContratoId);
-            comando.Parameters.AddWithValue("@InmuebleId", pago.InmuebleId);
+                "UPDATE `pago` SET `nroPago`=@nroPago,`importe`=@importe,`fecha`=@fecha WHERE `id_pago`=@id";
+            using (MySqlCommand comando = new MySqlCommand(query, conexion))
+            {
+                comando.Parameters.AddWithValue("@id", id);
+                comando.Parameters.AddWithValue("@nroPago", pago.nro_pago);
+                comando.Parameters.AddWithValue("@importe", pago.Precio);
+                comando.Parameters.AddWithValue("@fecha", pago.Fecha);
 
-            // Ejecutamos el comando y obtenemos el ID generado automáticamente
-            int pagoId = Convert.ToInt32(comando.ExecuteScalar());
-
-            return pagoId;
+                res = comando.ExecuteNonQuery();
+            }
+            ;
         }
-    }
-
-    public int Modificar(int id)
-    {
-        Pago pago = new Pago();
-        using (MySqlConnection conexion = new MySqlConnection(connectingString))
-        {
-            conexion.Open();
-            var query =
-                "UPDATE `pago` SET `nroPago`=@nroPago,`importe`=@importe,`fecha`=@fecha, `ContratoId`=@ContratoId, `InmuebleId`=@InmuebleId  WHERE `pago.id_pago`=@id";
-            MySqlCommand comando = new MySqlCommand(query, conexion);
-            comando.Parameters.AddWithValue("@nroPago", pago.nro_pago);
-            comando.Parameters.AddWithValue("@importe", pago.Precio);
-            comando.Parameters.AddWithValue("@fecha", pago.Fecha);
-            //comando.Parameters.AddWithValue("@id_pago", pago.PagoId);
-            comando.Parameters.AddWithValue("@ContratoId", pago.ContratoId);
-            comando.Parameters.AddWithValue("@InmuebleId", pago.InmuebleId);
-            comando.ExecuteNonQuery();
-        }
-        return 0;
+        return res;
     }
 
     public int Borrar(int id)
@@ -265,4 +257,72 @@ public int CrearAumentado(Pago pago)
         }
         return 0;
     }
+
+    public List<Pago> GetPagosDelContrato(int ContratoElegidoId)
+{
+    List<Pago> PagosDelContrato = new List<Pago>();
+    var query =
+        @"SELECT `id_pago`,`nroPago`,`importe`,`fecha`,`ContratoId`,`InmuebleId` FROM `pago` WHERE `ContratoId` = @ContratoId";
+    using (MySqlConnection conexion = new MySqlConnection(connectingString))
+    {
+        conexion.Open();
+        using (MySqlCommand comando = new MySqlCommand(query, conexion))
+        {
+            comando.Parameters.AddWithValue("@ContratoId", ContratoElegidoId);
+                
+            using (MySqlDataReader reader = comando.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    Pago pago = new Pago();
+                    pago.PagoId = reader.GetInt32(reader.GetOrdinal("id_pago"));
+                    pago.Precio = reader.GetDecimal(reader.GetOrdinal("importe"));
+                    pago.Fecha = reader.GetDateTime(reader.GetOrdinal("fecha"));
+                    pago.nro_pago = reader.GetInt32(reader.GetOrdinal("nroPago"));
+                    pago.ContratoId = reader.GetInt32(reader.GetOrdinal("ContratoId"));
+                    pago.InmuebleId = reader.GetInt32(reader.GetOrdinal("InmuebleId"));
+                    PagosDelContrato.Add(pago);
+                }
+            }
+        }
+    }
+    return PagosDelContrato;
+}
+
+private decimal ObtenerPrecioInmueble(int contratoId, MySqlConnection conexion)
+{
+    decimal precioInmueble = 0;
+
+    var queryPrecioInmueble =
+        "SELECT inmueble.precio FROM inmueble INNER JOIN contrato ON inmueble.id_inmueble = contrato.id_inmueble WHERE contrato.id_contrato = @ContratoId;";
+    MySqlCommand comandoPrecioInmueble = new MySqlCommand(queryPrecioInmueble, conexion);
+    comandoPrecioInmueble.Parameters.AddWithValue("@ContratoId", contratoId);
+    object result = comandoPrecioInmueble.ExecuteScalar();
+    if (result != null && result != DBNull.Value)
+    {
+        precioInmueble = Convert.ToDecimal(result);
+    }
+
+    return precioInmueble;
+}
+
+private int ObtenerCuotaActual(int contratoId, MySqlConnection conexion)
+{
+    int cuotaActual = 0;
+
+    var queryCuotaActual = "SELECT COUNT(*) FROM pago WHERE ContratoId = @ContratoId;";
+    MySqlCommand comandoCuotaActual = new MySqlCommand(queryCuotaActual, conexion);
+    comandoCuotaActual.Parameters.AddWithValue("@ContratoId", contratoId);
+    object result = comandoCuotaActual.ExecuteScalar();
+    if (result != null && result != DBNull.Value)
+    {
+        cuotaActual = Convert.ToInt32(result);
+    }
+
+    return cuotaActual;
+}
+
+
+
+
 }

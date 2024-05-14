@@ -2,6 +2,10 @@
 
 @{
     ViewData["Title"] = "Detalles";
+    var Inmueble = ViewBag.Inmueble;
+    var Contranto  = ViewBag.Contrado;
+    var Inquilino = ViewBag.Inquilino;
+
 }
 
 <h1>Detalles</h1>
@@ -34,6 +38,20 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.nro_pago)
         </dd>
+          <dt class = "col-sm-2">
+           <span>Inmueble</span> 
+        </dt>
+        <dd class = "col-sm-10">
+           @(Inmueble.Direccion)
+        </dd>
+        </dd>
+          <dt class = "col-sm-2">
+           <span>Inquilino</span> 
+        </dt>
+        <dd class = "col-sm-10">
+           @(Inquilino.Nombre + " " + Inquilino.Apellido)
+        </dd>
+        
     </dl>
 </div>
 <div>

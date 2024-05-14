@@ -98,6 +98,7 @@ namespace royectoInmobiliaria.net_MVC_.Controllers
             }
             return null;
         }
+        
         [Authorize(Roles = "Administrador") ]
         // GET: Usuario
         public ActionResult Index()

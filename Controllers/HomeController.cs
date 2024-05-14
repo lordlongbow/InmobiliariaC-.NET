@@ -7,6 +7,8 @@ namespace royectoInmobiliaria.net_MVC_.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private InmuebleRepositorio InmuebleRepositorio = new InmuebleRepositorio();
+    private ContratoReositorio ContratoReositorio = new ContratoReositorio();
 
     public HomeController(ILogger<HomeController> logger)
     {
@@ -28,4 +30,24 @@ public class HomeController : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
+
+    public IActionResult CargarVistasMenuLateral(string opcionMenu){
+        switch(opcionMenu){
+            case "_inmueblesDisponibles": 
+            {
+                    var inmueblesLibres = InmuebleRepositorio.verLibres();
+
+                    return PartialView("_inmueblesDisponibles", inmueblesLibres);
+            }
+            case "_contratosVigentes":
+            {
+                var contratoVigente = ContratoReositorio.ContratosVigentes();
+                return PartialView("_contratosVigentes", contratoVigente);
+            }
+            default: {
+                return View();
+            }
+        }
+    }
 }
+

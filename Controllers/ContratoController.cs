@@ -15,7 +15,7 @@ namespace royectoInmobiliaria.net_MVC_.Controllers
         private ContratoReositorio ContratoRepositorio = new ContratoReositorio();
         private InquilinoReositorio InquilinoRepositorio = new InquilinoReositorio();
         private InmuebleRepositorio InmuebleRepositorio = new InmuebleRepositorio();
-      
+
         private PagoReositorio PagoReositorio = new PagoReositorio();
 
         public ContratoController() { }
@@ -38,6 +38,8 @@ namespace royectoInmobiliaria.net_MVC_.Controllers
         public ActionResult Detalles(int id)
         {
             Contrato contrato = ContratoRepositorio.GetContrato(id);
+            ViewBag.Inquilino = InquilinoRepositorio.getInquilino(contrato.InquilinoId);
+            ViewBag.Inmueble = InmuebleRepositorio.getInmueble(contrato.InmuebleId);
             return View(contrato);
         }
 
@@ -46,10 +48,9 @@ namespace royectoInmobiliaria.net_MVC_.Controllers
         {
             ViewBag.Inquilinos = InquilinoRepositorio.GetInquilinos();
             ViewBag.Inmuebles = InmuebleRepositorio.GetInmuebles();
-          
-         
+
             Contrato contrato = new Contrato() { FechaInicio = DateTime.Today };
-           
+
             return View(contrato);
         }
 
@@ -75,7 +76,7 @@ namespace royectoInmobiliaria.net_MVC_.Controllers
         {
             ViewBag.Inquilinos = InquilinoRepositorio.GetInquilinos();
             ViewBag.Inmuebles = InmuebleRepositorio.GetInmuebles();
-          
+
             Contrato contrato = ContratoRepositorio.GetContrato(id);
             return View(contrato);
         }
@@ -122,6 +123,33 @@ namespace royectoInmobiliaria.net_MVC_.Controllers
             catch
             {
                 return View();
+            }
+        }
+
+        public ActionResult Renovar(int id)
+        {
+            ViewBag.Inquilinos = InquilinoRepositorio.GetInquilinos();
+            ViewBag.Inmuebles = InmuebleRepositorio.GetInmuebles();
+
+            Contrato contrato = ContratoRepositorio.GetContrato(id);
+            ViewBag.Title = "Renovar";
+            return View("Editar", contrato);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Renovar(int id, Contrato contrato)
+        {
+            try
+            {
+                contrato.ContratoId = id;
+                ContratoRepositorio.Renovar(contrato);
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception e)
+            {
+                throw;
             }
         }
     }

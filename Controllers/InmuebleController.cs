@@ -17,7 +17,7 @@ namespace royectoInmobiliaria.net_MVC_.Controllers
 
         private TipoRepositorio TipoRepositorio = new TipoRepositorio();
         private UsoRepositorio UsoRepositorio = new UsoRepositorio();
-
+        private ContratoReositorio ContratoReositorio = new ContratoReositorio();
         // GET: Inmueble
         public ActionResult Index()
         {
@@ -111,5 +111,11 @@ namespace royectoInmobiliaria.net_MVC_.Controllers
                 throw;
             }
         }
+
+    public ActionResult VerContratos(int id){
+        var Contratos = ContratoReositorio.ContratosPorInmueble(id);
+        return View(Contratos);
     }
+    }
+
 }

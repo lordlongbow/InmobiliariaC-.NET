@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
+//builder.WebHost.UseUrls("http://localhost:5000", "https://localhost:5001")//permite escuchar SOLO peticiones locales
+builder.WebHost.UseUrls("http://localhost:5200", "http://*:5200");//permite escuchar peticiones locales y remotas
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -33,7 +35,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();

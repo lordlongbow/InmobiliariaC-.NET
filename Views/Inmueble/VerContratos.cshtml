@@ -1,15 +1,15 @@
 @model IEnumerable<royectoInmobiliaria.net_MVC_.Models.Contrato>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Contratos Historicos";
 }
 
-<h1>Lista de Contratos</h1>
+<h1>Contratos del Inmueble: </h1>
 
 <p>
-    <a asp-action="Crear">Crear Contrato</a>
+    <a asp-action="Nuevo">Agregar nuevo Contrato</a>
 </p>
-<table class="table">
+    <table class="table">
     <thead>
         <tr>
             <th>
@@ -23,10 +23,13 @@
             </th>
         
             <th>
-                @Html.DisplayNameFor(model => model.InmuebleId)
+                @Html.DisplayNameFor(model => model.Inmueble)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.InquilinoId)
+                @Html.DisplayNameFor(model => model.Inquilino)
+            </th>
+            <th>
+                Propietario
             </th>
             <th></th>
         </tr>
@@ -55,11 +58,14 @@
                     }
                 </td>
                 <td>
-                    @Html.ActionLink("Editar", "Editar", new { id = item.ContratoId }) |
-                    @Html.ActionLink("Detalles", "Detalles", new { id = item.ContratoId }) |
-                    @Html.ActionLink("Borrar", "Borrar", new { id = item.ContratoId })  |
-                    @Html.ActionLink("Pagar", "Crear", "Pago", new {id = item.ContratoId} ) |
-                    @Html.ActionLink("Ver Pagos", "VerPagos", "Pago", new {id = item.ContratoId})
+                    @if (item.Inmueble.Propietario != null)
+                    {
+                        @(item.Inmueble.Propietario.Nombre + " " + item.Inmueble.Propietario.Apellido)
+                    }
+                </td>
+                <td>
+                    @Html.ActionLink("Detalles", "Detalles", "Contrato", new { id = item.ContratoId }) |
+                    @Html.ActionLink("Pagar", "Crear", "Pago", new {id = item.ContratoId} )
 
                 </td>
             </tr>

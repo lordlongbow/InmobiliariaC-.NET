@@ -1,13 +1,12 @@
 @model royectoInmobiliaria.net_MVC_.Models.Contrato
 
 @{
-    ViewData["Title"] = "Editar";
+    ViewData["Title"] = ViewBag.Title == "Renovar" ? "Renovar" : "Editar";
     var Inquilinos = (IList<Inquilino>)ViewBag.Inquilinos;
     var Inmuebles = (IList<Inmueble>)ViewBag.Inmuebles;
-
 }
 
-<h1>Editar</h1>
+<h1 id="titulo">@ViewData["Title"]</h1>
 
 <h4>Contrato</h4>
 <hr />
@@ -26,11 +25,10 @@
                 <input asp-for="FechaFinalizacion" type="Date" class="form-control" />
                 <span asp-validation-for="FechaFinalizacion" class="text-danger"></span>
             </div>
-           
+
             <div class="form-group">
                 <label asp-for="InmuebleId" class="control-label"></label>
                 <select class="form-control" asp-for="InmuebleId">
-
                     @foreach (var inmueble in Inmuebles)
                     {
                         <option value="@inmueble.InmuebleId">@inmueble.Direccion</option>
@@ -38,17 +36,31 @@
                 </select>
                 <span asp-validation-for="InmuebleId" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="InquilinoId" class="control-label"></label>
-                <select class="form-control" asp-for="InquilinoId">
 
-                    @foreach (var inquilino in Inquilinos)
-                    {
-                        <option value="@inquilino.Id">@inquilino.Nombre @inquilino.Apellido</option>
-                    }
-                </select>
-                <span asp-validation-for="InquilinoId" class="text-danger"></span>
-            </div>
+            @if (ViewBag.Title == "Renovar" && Model.Inquilino != null)
+            {
+                <div class="form-group">
+                    <label asp-for="InquilinoId" class="control-label"></label>
+                    <input asp-for="InquilinoId" type="text" class="form-control"
+                        value="@Model.Inquilino.Nombre @Model.Inquilino.Apellido" readonly />
+                    <span asp-validation-for="InquilinoId" class="text-danger"></span>
+                </div>
+            }
+            else
+            {
+                <div class="form-group">
+                    <label asp-for="InquilinoId" class="control-label"></label>
+                    <select class="form-control" asp-for="InquilinoId">
+                        @foreach (var inquilino in Inquilinos)
+                        {
+                            <option value="@inquilino.Id">@inquilino.Nombre @inquilino.Apellido</option>
+                        }
+                    </select>
+                    <span asp-validation-for="InquilinoId" class="text-danger"></span>
+                </div>
+            }
+
+
             <div class="form-group">
                 <input type="submit" value="Guardar" class="btn btn-primary" />
             </div>
@@ -59,4 +71,3 @@
 <div>
     <a asp-action="Index">Volver</a>
 </div>
-

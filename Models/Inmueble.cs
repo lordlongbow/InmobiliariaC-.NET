@@ -42,4 +42,6 @@ public class Inmueble
 
     [Required]
     public int UsoId {get;set;}
+
+    public bool Libre {get;set;}
 }

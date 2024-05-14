@@ -30,47 +30,49 @@
             <th>
                 @Html.DisplayNameFor(model => model.Longitud)
             </th>
-              <th>
+            <th>
                 @Html.DisplayNameFor(model => model.Propietario)
             </th>
-             
+
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.InmuebleId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Direccion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Precio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CantAmbientes)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Latitud)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Longitud)
-            </td>
-            <td>
-    @if (item.Propietario != null)
-    {
-        @(item.Propietario.Nombre + " " + item.Propietario.Apellido)
-    }
-</td>
-           
-            <td>
-                @Html.ActionLink("Editar", "Editar", new { id = item.InmuebleId }) |
-                @Html.ActionLink("Detalles", "Detalles", new {id = item.InmuebleId }) |
-                @Html.ActionLink("Borrar", "Borrar", new {id = item.InmuebleId })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InmuebleId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Direccion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Precio)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CantAmbientes)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Latitud)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Longitud)
+                </td>
+                <td>
+                    @if (item.Propietario != null)
+                    {
+                        @(item.Propietario.Nombre + " " + item.Propietario.Apellido)
+                    }
+                </td>
+
+                <td>
+                    @Html.ActionLink("Editar", "Editar", new { id = item.InmuebleId }) |
+                    @Html.ActionLink("Detalles", "Detalles", new { id = item.InmuebleId }) |
+                    @Html.ActionLink("Borrar", "Borrar", new { id = item.InmuebleId }) |
+                    @Html.ActionLink("Ver Contratos", "VerContratos", new {id = item.InmuebleId})
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

@@ -15,6 +15,8 @@ namespace royectoInmobiliaria.net_MVC_.Controllers
         private readonly ContratoReositorio ContratoReositorio = new ContratoReositorio();
         private readonly InmuebleRepositorio InmuebleRepositorio = new InmuebleRepositorio();
 
+          private readonly InquilinoReositorio InquilinoReositorio = new InquilinoReositorio();
+
 
         // GET: Pago
         public IActionResult Index(int id)
@@ -35,6 +37,10 @@ namespace royectoInmobiliaria.net_MVC_.Controllers
         public IActionResult Detalles(int id)
         {
             Pago Pago = PagoReositorio.GetPago(id);
+            Contrato contrato = ContratoReositorio.GetContrato(Pago.ContratoId);          
+            ViewBag.Inmueble = InmuebleRepositorio.getInmueble(Pago.InmuebleId);
+            ViewBag.Contrato = contrato;
+            ViewBag.Inquilino = InquilinoReositorio.getInquilino(contrato.InquilinoId);
             return View(Pago);
         }
 
@@ -42,13 +48,14 @@ namespace royectoInmobiliaria.net_MVC_.Controllers
         public ActionResult Crear(int id)
         {
             //guardar datos en variables 
+            Pago nuevoPago = new Pago();
             ViewBag.ContratoId = id;
             var contrato = ContratoReositorio.GetContrato(id);
             var inmueble  = InmuebleRepositorio.getInmueble(contrato.InmuebleId);
-            Pago nuevoPago = new Pago();
+            
+            nuevoPago.Precio = inmueble.Precio;
             ViewBag.Inmueble = inmueble;
             ViewBag.Contrato = contrato;
-            nuevoPago.Precio = inmueble.Precio;
             return View(nuevoPago);
         }
 
@@ -88,12 +95,13 @@ namespace royectoInmobiliaria.net_MVC_.Controllers
             try
             {
                 Pago.PagoId = id;
-                PagoReositorio.Modificar(id);
+                PagoReositorio.Modificar(Pago);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch(Exception e)
             {
-                return View();
+                throw;
+                //return View();
             }
         }
 
@@ -121,5 +129,11 @@ namespace royectoInmobiliaria.net_MVC_.Controllers
                 return View();
             }
         }
+
+    public ActionResult VerPagos(int id){
+        var PagosDelContrato = PagoReositorio.GetPagosDelContrato(id);
+         return View(PagosDelContrato);        
     }
+    }
+
 }

@@ -1,16 +1,12 @@
 @model IEnumerable<royectoInmobiliaria.net_MVC_.Models.Pago>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Pagos del Contrato";
 
 }
 
-<h1>Pagos </h1>
+<h1>Pagos del Contrato </h1>
 
-<p>
-     <a asp-action="Crear" >Pagar</a>
-
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -61,9 +57,10 @@
             <td>
                 @Html.ActionLink("Editar", "Editar", new { id=item.PagoId }) |
                 @Html.ActionLink("Detalles", "Detalles", new { id=item.PagoId }) |
-                @Html.ActionLink("Borrar", "Borrar", new { id=item.PagoId })
+                @Html.ActionLink("Borrar", "Borrar", new { id=item.PagoId }) 
+                @Html.ActionLink("Pagar", "Crear", new {id = item.ContratoId})
             </td>
-        </tr>
+        </tr>                
 }
     </tbody>
 </table>

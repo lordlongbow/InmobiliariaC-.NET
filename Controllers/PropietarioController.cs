@@ -13,9 +13,10 @@ namespace royectoInmobiliaria.net_MVC_.Controllers
     public class PropietarioController : Controller
     {
         private PropietarioReositorio propietarioReositorio;
-
+        private InmuebleRepositorio inmuebleRepositorio;
         public PropietarioController(){
             propietarioReositorio = new PropietarioReositorio();
+            inmuebleRepositorio = new InmuebleRepositorio();
         }
         // GET: Propietario
         public ActionResult Index()
@@ -30,6 +31,12 @@ namespace royectoInmobiliaria.net_MVC_.Controllers
             var propietario = propietarioReositorio.getPropietario(id);
             return View(propietario);
 
+        }
+
+        public ActionResult VerInmuebles(int id){
+            var inmueblesDelPropietario = inmuebleRepositorio.getInmueblesPorPropietario(id);
+            
+            return View(inmueblesDelPropietario);
         }
 
         // GET: Propietario/Create

@@ -1,9 +1,29 @@
-﻿@{
+﻿@model IEnumerable<royectoInmobiliaria.net_MVC_.Models.Inmueble>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
+
+<div class="container-fluid">
     <h1 class="display-4">Bienvenidos a Proyecto Inmobiliaria</h1>
-    <h4>Proximamente aqui se presentara la lista de los contratos activos</h4> 
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+
+    <div class="row">
+        <aside class="col-md-3">
+            <div class="list-group">
+                <a href="#" class="list-group-item list-group-item-action" onclick="cargarVistasMenuLateral('_inmueblesDisponibles')">Inmuebles disponibles
+                  
+                </a>
+                <a href="#" class="list-group-item list-group-item-action"  onclick="cargarVistasMenuLateral('_contratosVigentes')">Contratos Vigentes
+                    
+                </a>
+               
+            </div>
+        </aside>
+
+        <div id="contenedorParcial" class="col-md-9">
+            
+        </div>
+    </div>
 </div>
