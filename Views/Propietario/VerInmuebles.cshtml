@@ -2,9 +2,10 @@
 
 @{
     ViewData["Title"] = "Inmuebles Del Propietario";
+    var Propietario = ViewBag.Propietario;
 }
 
-<h1>Inmuebles del Propietario: </h1>
+<h1>Inmuebles del Propietario @Propietario.Nombre @Propietario.Apellido</h1>
 
 <p>
     <a asp-action="Nuevo">Agregar nuevo Inmueble</a>

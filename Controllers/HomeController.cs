@@ -31,23 +31,33 @@ public class HomeController : Controller
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 
-    public IActionResult CargarVistasMenuLateral(string opcionMenu){
-        switch(opcionMenu){
-            case "_inmueblesDisponibles": 
+    public IActionResult CargarVistasMenuLateral(string opcionMenu, DateTime? Desde, DateTime? Hasta){
+          switch (opcionMenu)
             {
+                case "_inmueblesDisponibles":
+                {
                     var inmueblesLibres = InmuebleRepositorio.verLibres();
-
                     return PartialView("_inmueblesDisponibles", inmueblesLibres);
+                  
+                }
+                case "_contratosVigentes":
+                {
+                    var contratoVigente = ContratoReositorio.ContratosVigentes();
+                    return PartialView("_contratosVigentes", contratoVigente);
+                   
+                }
+                case "_inmueblesDisponiblesPorFecha":
+                {
+                    var inmueblesLibres = InmuebleRepositorio.ObtenerInmueblesLibres(Desde, Hasta);
+                    return PartialView("_inmueblesDisponiblesPorFecha", inmueblesLibres);
+                    
+                }
+                default:
+                {
+                    return View("Index"); 
+                }
+            
             }
-            case "_contratosVigentes":
-            {
-                var contratoVigente = ContratoReositorio.ContratosVigentes();
-                return PartialView("_contratosVigentes", contratoVigente);
-            }
-            default: {
-                return View();
-            }
-        }
     }
 }
 

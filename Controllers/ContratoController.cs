@@ -84,14 +84,24 @@ namespace royectoInmobiliaria.net_MVC_.Controllers
         // POST: Contrato/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Editar(int id, Contrato contrato)
+        public ActionResult Editar(int id, Contrato contrato, string IsRenovar)
         {
             try
             {
-                contrato.ContratoId = id;
-                ContratoRepositorio.Modificar(contrato);
+                if (IsRenovar == "true")
+                {
+                    contrato.ContratoId = id;
+                    ContratoRepositorio.Renovar(contrato);
 
-                return RedirectToAction(nameof(Index));
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    contrato.ContratoId = id;
+                    ContratoRepositorio.Modificar(contrato);
+
+                    return RedirectToAction(nameof(Index));
+                }
             }
             catch (Exception e)
             {
@@ -136,21 +146,43 @@ namespace royectoInmobiliaria.net_MVC_.Controllers
             return View("Editar", contrato);
         }
 
+
+public IActionResult Alquilar(int id, DateTime? Desde, DateTime? Hasta)
+{
+            var idInmueble = id;
+            ViewBag.Inquilinos = InquilinoRepositorio.GetInquilinos();
+            ViewBag.Inmueble = InmuebleRepositorio.getInmueble(idInmueble);
+    
+    var contrato = new Contrato
+    {
+        InmuebleId = idInmueble,
+        FechaInicio = Desde ?? DateTime.Now,
+        FechaFinalizacion = Hasta ?? DateTime.Now.AddMonths(12)
+    };
+    
+    
+    return View(contrato);
+}
+
+    
+
+      
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Renovar(int id, Contrato contrato)
+        public ActionResult Alquilar(Contrato contrato)
         {
             try
             {
-                contrato.ContratoId = id;
-                ContratoRepositorio.Renovar(contrato);
+                ContratoRepositorio.Crear(contrato);
 
                 return RedirectToAction(nameof(Index));
             }
-            catch (Exception e)
+            catch
             {
-                throw;
+                return View();
             }
         }
+
+
     }
 }

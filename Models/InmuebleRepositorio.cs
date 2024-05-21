@@ -6,6 +6,7 @@ public class InmuebleRepositorio
 {
     string connectingString = "server=localhost; user=root; Password=; database=inmobiliaria_cs;";
 
+ 
     public InmuebleRepositorio() { }
 
     public List<Inmueble> GetInmuebles()
@@ -196,8 +197,7 @@ public class InmuebleRepositorio
         List<Inmueble> inmuebles = new List<Inmueble>();
 
         string query =
-            @"SELECT inmueble.id_inmueble,`direccion`, `precio`, `cantAmbientes`, `latitud`, `longitud`, `libre`, propietario.nombre, propietario.apellido, roles.Descricion as descripcion, usos.descripcion as DescripcionUso FROM `inmueble` JOIN propietario JOIN roles JOIN usos WHERE libre = 1 AND inmueble.id_propietario = propietario.id AND roles.RolId = inmueble.id_tipo AND inmueble.id_uso = usos.id_uso;";
-
+            @"SELECT inmueble.id_inmueble,`direccion`, `precio`, `cantAmbientes`, `latitud`, `longitud`, `libre`, propietario.nombre, propietario.apellido, tipos.descripcion as descripcion, usos.descripcion as DescripcionUso FROM `inmueble` JOIN propietario JOIN tipos JOIN usos WHERE libre = 1 AND inmueble.id_propietario = propietario.id AND tipos.id_tipo = inmueble.id_tipo AND inmueble.id_uso = usos.id_uso;";
         using (MySqlConnection connection = new MySqlConnection(connectingString))
         {
             using (MySqlCommand command = new MySqlCommand(query, connection))
@@ -335,7 +335,10 @@ public class InmuebleRepositorio
             var query =
                 @"SELECT DISTINCT inmueble.id_inmueble, inmueble.direccion, 
        inmueble.cantAmbientes, 
-       inmueble.libre, 
+       inmueble.libre,
+       inmueble.precio,
+       inmueble.latitud,
+       inmueble.longitud,
        usos.descripcion AS DescripcionUso, 
        tipos.descripcion AS descripcion 
 FROM inmueble 
@@ -355,6 +358,9 @@ WHERE inmueble.id_propietario = @id;
                         Inmueble inmueble = new Inmueble();
                         inmueble.InmuebleId = reader.GetInt32("id_inmueble");
                         inmueble.Direccion = reader.GetString("direccion");
+                        inmueble.Precio = reader.GetDecimal("precio");
+                        inmueble.Latitud = reader.GetInt32("latitud");
+                        inmueble.Longitud = reader.GetInt32("longitud");
                         inmueble.CantAmbientes = reader.GetInt32("cantAmbientes");
                         inmueble.Libre = reader.GetBoolean("libre");
                         inmueble.Uso = new Uso
@@ -370,4 +376,56 @@ WHERE inmueble.id_propietario = @id;
             return InmueblesDelPropetario;
         }
     }
+
+
+    public List<Inmueble> ObtenerInmueblesLibres(DateTime? Desde, DateTime? Hasta)
+{
+    List<Inmueble> inmueblesLibres = new List<Inmueble>();
+
+    string query = @"
+        SELECT i.id_inmueble, i.direccion, i.cantAmbientes, i.precio, p.nombre, p.apellido
+        FROM inmueble i
+        INNER JOIN propietario p ON i.id_propietario = p.id
+        WHERE i.id_inmueble NOT IN (
+            SELECT c.id_inmueble
+            FROM contrato c
+            WHERE @Desde < c.fechaFinalizacion
+            AND @Hasta > c.fechaInicio
+        )
+    ";
+
+    using (MySqlConnection connection = new MySqlConnection(connectingString))
+    {
+        using (MySqlCommand command = new MySqlCommand(query, connection))
+        {
+            command.Parameters.AddWithValue("@Desde", Desde);
+            command.Parameters.AddWithValue("@Hasta", Hasta);
+
+            connection.Open();
+            using (MySqlDataReader reader = command.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    Inmueble inmueble = new Inmueble();
+                    inmueble.InmuebleId = reader.GetInt32("id_inmueble");
+                    inmueble.Direccion = reader.GetString("direccion");
+                    inmueble.CantAmbientes = reader.GetInt32("cantAmbientes");
+                    inmueble.Precio = reader.GetDecimal("precio");
+
+                    inmueble.Propietario = new Propietario
+                    {
+                        Nombre = reader.GetString("nombre"),
+                        Apellido = reader.GetString("apellido")
+                    };
+
+                    inmueblesLibres.Add(inmueble);
+                }
+            }
+        }
+    }
+
+    return inmueblesLibres;
+}
+
+
 }

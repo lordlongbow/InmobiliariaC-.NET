@@ -35,7 +35,7 @@ namespace royectoInmobiliaria.net_MVC_.Controllers
 
         public ActionResult VerInmuebles(int id){
             var inmueblesDelPropietario = inmuebleRepositorio.getInmueblesPorPropietario(id);
-            
+            ViewBag.Propietario = propietarioReositorio.getPropietario(id);
             return View(inmueblesDelPropietario);
         }
 

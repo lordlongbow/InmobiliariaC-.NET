@@ -17,11 +17,12 @@ public class ContratoReositorio
         {
             string query =
                 @"SELECT c.id_contrato as ContratoId, c.fechaInicio, c.fechaFinalizacion, c.id_inmueble as InmuebleId, c.id_inquilino as InquilinoId, 
-                i.id_inmueble, i.direccion as Direccion, 
-                iq.id, iq.nombre, iq.apellido              
+                i.id_inmueble, i.direccion as Direccion, i.cantAmbientes, i.precio, 
+                iq.id, iq.nombre, iq.apellido, p.nombre, p.apellido              
                  FROM contrato c
                  INNER JOIN inmueble i ON c.id_inmueble = i.id_inmueble
-                 INNER JOIN inquilino iq ON c.id_inquilino = iq.id";
+                 INNER JOIN inquilino iq ON c.id_inquilino = iq.id
+                 INNER JOIN propietario p ON i.id_propietario = p.id;";
             using (MySqlCommand command = new MySqlCommand(query, connection))
             {
                 connection.Open();
@@ -41,7 +42,9 @@ public class ContratoReositorio
                         contrato.Inmueble = new Inmueble
                         {
                             InmuebleId = reader.GetInt32(nameof(Inmueble.InmuebleId)),
-                            Direccion = reader.GetString(nameof(Inmueble.Direccion))
+                            Direccion = reader.GetString(nameof(Inmueble.Direccion)),
+                            Precio = reader.GetDecimal(nameof(Inmueble.Precio)),
+                            CantAmbientes = reader.GetInt32(nameof(Inmueble.CantAmbientes))
                         };
                         contrato.Inquilino = new Inquilino
                         {
@@ -108,7 +111,11 @@ public class ContratoReositorio
 
     public int Crear(Contrato contrato)
     {
+
         int res = 0;
+        
+
+        
         using (MySqlConnection connection = new MySqlConnection(connectingString))
         {
             string query =
@@ -298,16 +305,26 @@ public class ContratoReositorio
     public Contrato Renovar(Contrato contrato)
     {
         int idContrato = contrato.ContratoId;
+        DateTime NuevaFecha = contrato.FechaFinalizacion;
         DateTime hoy = DateTime.Now;
         Contrato contratoRenovable = GetContrato(idContrato);
-
-        if (
+        Inmueble InmuebleAlquilado = InmuebleRepositorio.getInmueble(contrato.InmuebleId);
+       
+        if (contratoRenovable != null &&
             contratoRenovable.FechaFinalizacion < hoy
             && contrato.InquilinoId == contratoRenovable.InquilinoId
         )
         {
-            contratoRenovable.FechaFinalizacion = contrato.FechaFinalizacion;
+            
+            contratoRenovable.FechaFinalizacion = NuevaFecha;
+            
+            decimal aumentoPrecio = InmuebleAlquilado.Precio * 0.15m;
+            InmuebleAlquilado.Precio += aumentoPrecio;
+
+            InmuebleRepositorio.Modificar(InmuebleAlquilado);
+            
             Modificar(contratoRenovable);
+
             return contratoRenovable;
         }
         else
@@ -315,4 +332,9 @@ public class ContratoReositorio
             return null;
         }
     }
+
+    
+
+    
+
 }

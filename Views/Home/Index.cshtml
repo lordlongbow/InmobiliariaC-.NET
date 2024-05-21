@@ -18,7 +18,9 @@
                 <a href="#" class="list-group-item list-group-item-action"  onclick="cargarVistasMenuLateral('_contratosVigentes')">Contratos Vigentes
                     
                 </a>
-               
+                  <a href="#" class="list-group-item list-group-item-action"  onclick="cargarVistasMenuLateral('_inmueblesDisponiblesPorFecha')">Buscar Inmuebles Libres
+                    
+                </a>
             </div>
         </aside>
 
@@ -27,3 +29,40 @@
         </div>
     </div>
 </div>
+@section Scripts {
+    <script>
+        function cargarVistasMenuLateral(opcionMenu) {
+            $.ajax({
+                url: '@Url.Action("CargarVistasMenuLateral", "Home")',
+                data: { opcionMenu: opcionMenu },
+                success: function (data) {
+                    $('#contenedorParcial').html(data);
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            cargarVistasMenuLateral('_inmueblesDisponibles');
+
+            $(document).on('submit', '#formFechas', function (event) {
+                event.preventDefault();
+
+                var Desde = $('#Desde').val();
+                var Hasta = $('#Hasta').val();
+
+                $.ajax({
+                    url: '@Url.Action("CargarVistasMenuLateral", "Home")',
+                    data: {
+                        opcionMenu: "_inmueblesDisponiblesPorFecha",
+                        Desde: Desde,
+                        Hasta: Hasta
+                    },
+                    type: "GET",
+                    success: function (data) {
+                        $('#contenedorParcial').html(data);
+                    }
+                });
+            });
+        });
+    </script>
+}

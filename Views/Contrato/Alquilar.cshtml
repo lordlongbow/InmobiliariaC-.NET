@@ -1,0 +1,58 @@
+@model royectoInmobiliaria.net_MVC_.Models.Contrato
+
+@{
+    ViewData["Title"] = "Alquilar";
+    var Inquilinos = (IList<Inquilino>)ViewBag.Inquilinos;
+    var Inmueble = ViewBag.Inmueble;
+}
+
+<h1>Alquilar Inmueble</h1>
+
+<h4>Contrato</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Alquilar">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
+            <div class="form-group">
+                <label asp-for="FechaInicio" class="control-label"></label>
+                <input asp-for="FechaInicio" type="date" class="form-control" />
+                <span asp-validation-for="FechaInicio" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="FechaFinalizacion" class="control-label"></label>
+                <input asp-for="FechaFinalizacion" type="date" class="form-control" />
+                <span asp-validation-for="FechaFinalizacion" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="InmuebleId" class="control-label">Inmueble</label>
+                <input type="hidden" asp-for="InmuebleId" />
+                <input type="text" class="form-control" value="@Inmueble.Direccion" readonly />
+                <span asp-validation-for="InmuebleId" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="InquilinoId" class="control-label">Inquilinos</label>
+                <select class="form-control" asp-for="InquilinoId">
+                    <option value="" disabled selected>Seleccione el Inquilino...</option>
+                    @foreach (var inquilino in Inquilinos)
+                    {
+                        <option value="@inquilino.Id">@inquilino.Nombre @inquilino.Apellido</option>
+                    }
+                </select>
+                <span asp-validation-for="InquilinoId" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <input type="submit" value="Firmar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Volver</a>
+</div>

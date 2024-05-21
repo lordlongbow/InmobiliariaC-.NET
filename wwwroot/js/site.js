@@ -3,7 +3,7 @@
 
 // Write your JavaScript code.
 
-
+/*
 $(document).ready(function () {
     cargarVistasMenuLateral("_inmueblesDisponibles");
 })
@@ -17,3 +17,5 @@ function cargarVistasMenuLateral(opcionMenu){
         }
     })
 }
+*/
+  
